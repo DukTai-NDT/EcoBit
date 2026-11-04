@@ -1,0 +1,66 @@
+/* ECO PLAY – sảnh và thanh đầu màn chơi. */
+.play-hub, .play-game { gap: 8px; }
+
+/* Sảnh */
+.play-hub-head { flex: none; display: flex; align-items: center; gap: 10px; }
+.play-hub-head h1 { margin: 0; font-size: var(--fs-xl); }
+.play-hub-head .chip { margin-left: auto; font-size: var(--fs-md); }
+.play-grid { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; gap: 8px; }
+
+.play-card {
+  --game: var(--aqua-300);
+  flex: 1 1 0; min-height: 60px; max-height: 96px;
+  display: flex; align-items: center; gap: 10px; padding: 6px 10px 6px 8px;
+  color: var(--ink); text-decoration: none; background: var(--paper);
+  border: var(--line) solid var(--ink); border-radius: var(--radius); box-shadow: var(--lift-sm);
+  transition: transform .12s var(--ease), box-shadow .12s var(--ease);
+}
+.play-card:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); }
+.play-ico {
+  flex: none; width: 44px; height: 44px; display: grid; place-items: center;
+  font-size: 1.5rem; line-height: 1; background: var(--game);
+  border: 2px solid var(--ink); border-radius: 14px;
+}
+.play-text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.play-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.play-name { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; line-height: 1.25; white-space: nowrap; }
+.play-top .chip { flex: none; padding: 1px 7px; white-space: nowrap; }
+.play-desc { font-size: 1rem; line-height: 1.3; color: var(--text-soft); }
+
+.play-points {
+  flex: none; padding: 6px 10px; background: var(--sun-100);
+  border: 2px dashed var(--ink); border-radius: var(--radius-sm);
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px;
+}
+.play-points-title { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-display); font-weight: 800; }
+.play-rules { display: flex; flex-wrap: wrap; gap: 4px; }
+.play-rules .chip { padding: 0 8px; }
+.play-points p { margin: 0; line-height: 1.3; }
+
+/* Màn chơi */
+.play-head { flex: none; display: flex; align-items: center; gap: 10px; }
+.play-head .btn-back { min-height: 44px; }
+.play-title { margin: 0; font-size: 1.2rem; white-space: nowrap; }
+.play-progress { flex: 1; min-width: 40px; }
+.play-host { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
+
+@media (hover: hover) {
+  .play-card:hover { transform: translateY(-2px); box-shadow: var(--lift); }
+}
+
+@media (min-width: 861px) {
+  .play-hub-head h1 { font-size: var(--fs-2xl); }
+  .play-grid {
+    display: grid; gap: 16px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+  }
+  .play-card { max-height: none; flex-direction: column; align-items: flex-start; justify-content: center; padding: 18px; }
+  .play-ico { width: 72px; height: 72px; font-size: 2.4rem; }
+  .play-text { width: 100%; }
+  .play-top { flex-wrap: wrap; }
+  .play-name { font-size: 1.35rem; }
+  .play-points { flex-direction: column; align-items: flex-start; align-content: flex-start; padding: 16px; gap: 10px; }
+  .play-rules .chip { font-size: var(--fs-md); padding: 3px 10px; }
+  .play-title { font-size: var(--fs-xl); }
+}
