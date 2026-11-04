@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ECObit HUB – Thế giới tái chế trong tầm tay</title>
+  <meta name="description" content="Cùng Ebi khám phá hành trình của một chiếc chai nhựa: tìm hiểu 7 mã nhựa, chơi minigame, tích ECO POINT và nhận huy hiệu.">
+  <meta name="theme-color" content="#2E7D4F">
+  <meta property="og:title" content="ECObit HUB – Thế giới tái chế trong tầm tay">
+  <meta property="og:description" content="Một chiếc chai, muôn vàn khả năng. Khám phá, chơi và nhận huy hiệu cùng Ebi!">
+  <meta property="og:image" content="public/img/step-5-products.webp">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='18' y='18' width='28' height='40' rx='10' fill='%23BFE8EC' stroke='%2324402E' stroke-width='4'/%3E%3Crect x='24' y='6' width='16' height='12' rx='3' fill='%233E9B4F' stroke='%2324402E' stroke-width='4'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="src/styles/tokens.css">
+  <link rel="stylesheet" href="src/styles/base.css">
+  <link rel="stylesheet" href="src/styles/shell.css">
+  <link rel="stylesheet" href="src/styles/engines.css">
+</head>
+<body>
+  <div id="app" class="app">
+    <header class="topbar">
+      <a class="brand" href="#/home" aria-label="ECObit HUB – Trang chủ">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-text"><b>ECObit</b> HUB</span>
+      </a>
+      <nav class="tabbar" id="tabbar" aria-label="Các khu khám phá"></nav>
+      <a class="points-chip" href="#/passport" id="pointsChip" aria-label="ECO POINT của bạn">
+        <span class="points-ico" aria-hidden="true">★</span>
+        <span class="points-val" id="pointsVal">0</span>
+        <span class="points-lbl">ECO POINT</span>
+      </a>
+    </header>
+    <main id="stage" class="stage" tabindex="-1"></main>
+  </div>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <noscript><p style="padding:24px;font-family:sans-serif">ECObit HUB cần bật JavaScript để chơi.</p></noscript>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

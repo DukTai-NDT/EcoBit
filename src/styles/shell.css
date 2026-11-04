@@ -1,0 +1,170 @@
+/* ECObit HUB – khung ứng dụng: thanh trên, thanh tab, sân khấu, toast, modal */
+.app { height: 100vh; height: 100dvh; display: flex; flex-direction: column; }
+
+/* ---------- Thanh trên ---------- */
+.topbar {
+  position: relative; z-index: 20;
+  height: var(--topbar-h); flex: none;
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px;
+  padding: 0 var(--gutter);
+  background: var(--paper);
+  border-bottom: var(--line) solid var(--ink);
+}
+.brand { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--ink); }
+.brand-mark {
+  width: 22px; height: 30px; margin-top: 6px; position: relative; flex: none;
+  background: var(--aqua-300); border: 3px solid var(--ink); border-radius: 9px 9px 10px 10px;
+}
+.brand-mark::before {
+  content: ""; position: absolute; left: 2px; right: 2px; top: -10px; height: 8px;
+  background: var(--green-500); border: 3px solid var(--ink); border-radius: 3px;
+}
+.brand-text { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; letter-spacing: .01em; white-space: nowrap; }
+.brand-text b { color: var(--green-700); font-weight: 800; }
+
+.points-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px 4px 6px; border-radius: 999px;
+  background: var(--sun-100); border: 2.5px solid var(--ink); box-shadow: var(--lift-sm);
+  color: var(--ink); text-decoration: none; font-weight: 700; white-space: nowrap;
+  transition: transform .15s var(--ease);
+}
+.points-chip:hover { transform: translateY(-1px); }
+.points-ico {
+  width: 28px; height: 28px; display: grid; place-items: center;
+  background: var(--sun-400); border: 2px solid var(--ink); border-radius: 50%;
+  font-size: 15px; line-height: 1;
+}
+.points-val { font-family: var(--font-display); font-size: 1.2rem; font-weight: 800; min-width: 1.5ch; text-align: right; }
+.points-lbl { font-size: .72rem; letter-spacing: .05em; color: var(--ink-soft); }
+.points-chip.bump { animation: pop-in .5s var(--ease-bounce); }
+
+/* ---------- Thanh tab ---------- */
+.tabbar { display: flex; justify-content: center; gap: 4px; min-width: 0; }
+.tab {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 12px; border-radius: 999px;
+  color: var(--ink-soft); text-decoration: none;
+  font-family: var(--font-display); font-weight: 700; font-size: .98rem; letter-spacing: .02em;
+  border: 2.5px solid transparent;
+  transition: background .2s, color .2s, transform .15s var(--ease);
+  white-space: nowrap;
+}
+.tab svg { width: 20px; height: 20px; flex: none; }
+.tab:hover { color: var(--ink); background: rgba(36, 64, 46, .06); }
+.tab[aria-current="page"] {
+  color: var(--ink); background: var(--green-100);
+  border-color: var(--ink); box-shadow: var(--lift-sm);
+}
+.tab .tab-lbl-short { display: none; }
+.tab .tab-dot {
+  position: absolute; top: 2px; right: 4px; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--sun-400); border: 2px solid var(--ink);
+}
+
+@media (max-width: 1240px) and (min-width: 861px) {
+  .tab svg { display: none; }
+  .tab { padding: 7px 9px; font-size: .92rem; }
+  .points-lbl { display: none; }
+}
+
+/* điện thoại: thanh tab ở đáy */
+@media (max-width: 860px) {
+  .topbar { grid-template-columns: 1fr auto; }
+  .tabbar {
+    position: fixed; z-index: 30; left: 0; right: 0; bottom: 0;
+    height: var(--tabbar-h);
+    padding: 6px 4px env(safe-area-inset-bottom, 0px);
+    background: var(--paper);
+    border-top: var(--line) solid var(--ink);
+    justify-content: space-around; gap: 0;
+  }
+  .tab {
+    flex: 1 1 0; flex-direction: column; justify-content: center; gap: 1px;
+    padding: 4px 0; border-radius: 14px; min-width: 0;
+    font-family: var(--font-body); font-size: .66rem; font-weight: 600; letter-spacing: 0;
+    border-width: 2px;
+  }
+  .tab svg { display: block; width: 24px; height: 24px; }
+  .tab .tab-lbl-long { display: none; }
+  .tab .tab-lbl-short { display: block; font-size: .62rem; letter-spacing: -.01em; white-space: nowrap; }
+  .tab[aria-current="page"] { box-shadow: none; }
+  .tab .tab-dot { top: 2px; right: calc(50% - 18px); }
+  .brand-text { font-size: 1.15rem; }
+  .points-lbl { display: none; }
+}
+
+/* ---------- Sân khấu ---------- */
+.stage {
+  position: relative; flex: 1; min-height: 0;
+  margin-bottom: var(--tabbar-h);
+  overflow: hidden; outline: none;
+}
+.screen.enter-right { animation: screen-in-right .42s var(--ease) both; }
+.screen.enter-left { animation: screen-in-left .42s var(--ease) both; }
+.screen.enter-fade { animation: fade-up .35s var(--ease) both; }
+.screen.leaving { animation: screen-out .25s ease both; pointer-events: none; }
+@keyframes screen-in-right { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: none; } }
+@keyframes screen-in-left { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: none; } }
+@keyframes screen-out { to { opacity: 0; } }
+
+/* ---------- Toast ---------- */
+.toasts {
+  position: fixed; z-index: 100; left: 50%; transform: translateX(-50%);
+  top: calc(var(--topbar-h) + 10px);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  pointer-events: none; width: min(92vw, 420px);
+}
+.toast {
+  pointer-events: auto;
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px; border-radius: 18px;
+  background: var(--paper); border: var(--line) solid var(--ink); box-shadow: var(--lift);
+  font-weight: 600; animation: pop-in .4s var(--ease-bounce);
+}
+.toast.out { animation: screen-out .3s ease forwards; }
+.toast-ico { font-size: 1.6rem; line-height: 1; }
+.toast.badge { background: var(--sun-100); }
+.toast.points { background: var(--green-100); }
+
+/* ---------- Modal ---------- */
+.modal-backdrop {
+  position: fixed; inset: 0; z-index: 90;
+  background: rgba(36, 64, 46, .45);
+  display: grid; place-items: center; padding: 16px;
+  animation: fade-up .25s ease;
+}
+.modal {
+  width: min(560px, 100%); max-height: calc(100dvh - 32px); overflow: auto;
+  background: var(--paper); border: var(--line) solid var(--ink); border-radius: var(--radius-lg);
+  box-shadow: 0 8px 0 var(--ink); padding: 22px;
+  animation: pop-in .4s var(--ease-bounce);
+  position: relative;
+}
+.modal-close { position: absolute; top: 10px; right: 10px; }
+
+/* ---------- Confetti ---------- */
+.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 95; overflow: hidden; }
+.confetti i {
+  position: absolute; top: -20px; width: 10px; height: 14px; border: 1.5px solid var(--ink); border-radius: 3px;
+  animation: confetti-fall var(--d, 1.8s) cubic-bezier(.3, .6, .5, 1) forwards;
+}
+@keyframes confetti-fall {
+  to { transform: translate(var(--x, 0), 105vh) rotate(var(--r, 540deg)); opacity: .9; }
+}
+
+/* ---------- Ebi ---------- */
+.ebi { display: block; overflow: visible; }
+.ebi .ebi-bob { animation: ebi-bob 3.2s ease-in-out infinite; transform-origin: 100px 250px; }
+.ebi .ebi-eyes { animation: ebi-blink 4.6s infinite; transform-origin: 100px 128px; }
+.ebi .ebi-arm-wave { animation: ebi-wave 1.4s ease-in-out infinite; }
+.ebi .ebi-leaf { animation: ebi-leaf 3s ease-in-out infinite; transform-origin: 100px 40px; }
+.ebi.is-still .ebi-bob, .ebi.is-still .ebi-arm-wave { animation: none; }
+.ebi.hop { animation: ebi-hop .6s var(--ease-bounce); }
+.ebi.nope { animation: shake .45s ease; }
+@keyframes ebi-bob { 0%,100% { transform: translateY(0) scaleY(1); } 50% { transform: translateY(-5px) scaleY(1.012); } }
+@keyframes ebi-blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
+@keyframes ebi-wave { 0%,100% { transform: rotate(0); } 50% { transform: rotate(-22deg); } }
+@keyframes ebi-leaf { 0%,100% { transform: rotate(-4deg); } 50% { transform: rotate(5deg); } }
+@keyframes ebi-hop { 0% { transform: translateY(0); } 40% { transform: translateY(-18px) rotate(-3deg); } 100% { transform: none; } }

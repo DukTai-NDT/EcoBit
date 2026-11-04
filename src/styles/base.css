@@ -1,0 +1,197 @@
+/* ECObit HUB – nền tảng: reset, chữ, nút, thẻ, màn hình */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  line-height: 1.55;
+  color: var(--text);
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(168, 219, 143, .35) 0 120px, transparent 121px),
+    radial-gradient(circle at 92% 82%, rgba(158, 217, 224, .35) 0 160px, transparent 161px),
+    radial-gradient(rgba(36, 64, 46, .07) 1.2px, transparent 1.3px);
+  background-size: auto, auto, 22px 22px;
+  background-attachment: fixed;
+  overflow: hidden;              /* không cuộn trang: mỗi tab là 1 màn hình */
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+img, svg, canvas { display: block; max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+a { color: var(--green-700); }
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  line-height: 1.12;
+  margin: 0 0 .4em;
+  letter-spacing: -.01em;
+  text-wrap: balance;
+}
+h1 { font-size: var(--fs-2xl); font-weight: 800; }
+h2 { font-size: var(--fs-xl); font-weight: 800; }
+h3 { font-size: var(--fs-lg); font-weight: 700; }
+p { margin: 0 0 .75em; text-wrap: pretty; }
+.sr-only {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+:focus-visible { outline: 3px solid var(--sun-400); outline-offset: 3px; border-radius: 10px; }
+
+/* ---------- Màn hình ---------- */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(12px, 2.5vh, 28px) var(--gutter) clamp(12px, 2.5vh, 24px);
+  overflow-x: hidden;
+  overflow-y: auto;              /* chỉ là lưới an toàn cho máy rất thấp */
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+.screen-inner {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.screen-head {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  margin-bottom: clamp(8px, 2vh, 20px);
+}
+.screen-head h1, .screen-head h2 { margin: 0; }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-display); font-weight: 700; font-size: var(--fs-sm);
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--green-700);
+}
+.lead { font-size: clamp(1rem, .95rem + .3vw, 1.15rem); color: var(--text-soft); max-width: 60ch; }
+.center { text-align: center; }
+.grow { flex: 1; min-height: 0; }
+.row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.stack { display: flex; flex-direction: column; gap: 12px; }
+
+/* ---------- Nút ---------- */
+.btn {
+  --btn-bg: var(--paper);
+  --btn-fg: var(--ink);
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 48px; padding: 10px 20px;
+  font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; letter-spacing: .01em;
+  color: var(--btn-fg); background: var(--btn-bg);
+  border: var(--line) solid var(--ink); border-radius: 999px;
+  box-shadow: var(--lift);
+  text-decoration: none; white-space: nowrap;
+  transition: transform .12s var(--ease), box-shadow .12s var(--ease), background .2s;
+  user-select: none; touch-action: manipulation;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 var(--ink); }
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); }
+.btn[disabled] { opacity: .45; pointer-events: none; }
+.btn-primary { --btn-bg: var(--green-500); --btn-fg: #fff; }
+.btn-sun { --btn-bg: var(--sun-400); }
+.btn-aqua { --btn-bg: var(--aqua-300); }
+.btn-ghost { --btn-bg: transparent; box-shadow: none; }
+.btn-ghost:hover { box-shadow: none; background: rgba(36,64,46,.06); }
+.btn-sm { min-height: 40px; padding: 6px 14px; font-size: .95rem; }
+.btn-icon { width: 48px; padding: 0; }
+.btn-back {
+  min-height: 40px; padding: 6px 14px 6px 10px; font-size: .95rem;
+  --btn-bg: var(--paper); box-shadow: var(--lift-sm);
+}
+
+/* ---------- Thẻ & chip ---------- */
+.card {
+  background: var(--surface);
+  border: var(--line) solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: var(--lift);
+  padding: clamp(14px, 2vw, 22px);
+}
+.card-soft {
+  background: rgba(255, 253, 247, .8);
+  border: 2px dashed rgba(36, 64, 46, .35);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 12px; border-radius: 999px;
+  border: 2px solid var(--ink); background: var(--paper);
+  font-weight: 700; font-size: var(--fs-xs); line-height: 1.4;
+}
+.chip-green { background: var(--green-100); }
+.chip-sun { background: var(--sun-100); }
+.chip-aqua { background: var(--aqua-100); }
+.chip-pink { background: var(--pink-100); }
+.sticker { filter: var(--sticker-shadow); user-select: none; -webkit-user-drag: none; }
+
+/* bong bóng lời thoại của Ebi */
+.bubble {
+  position: relative;
+  background: var(--paper);
+  border: var(--line) solid var(--ink);
+  border-radius: 22px;
+  padding: 12px 16px;
+  box-shadow: var(--lift-sm);
+  font-weight: 500;
+  max-width: 42ch;
+}
+.bubble::after {
+  content: ""; position: absolute; left: -14px; bottom: 18px;
+  width: 22px; height: 22px; background: var(--paper);
+  border-left: var(--line) solid var(--ink); border-bottom: var(--line) solid var(--ink);
+  transform: skewY(35deg) rotate(10deg);
+  border-bottom-left-radius: 6px;
+}
+.bubble.from-right::after { left: auto; right: -14px; transform: scaleX(-1) skewY(35deg) rotate(10deg); }
+.bubble.from-top::after { left: 40px; bottom: auto; top: -13px; transform: rotate(135deg); }
+.bubble b { color: var(--green-700); }
+
+/* thanh tiến độ */
+.progress {
+  height: 14px; border: 2px solid var(--ink); border-radius: 999px;
+  background: var(--paper); overflow: hidden;
+}
+.progress > span {
+  display: block; height: 100%; width: var(--p, 0%);
+  background: repeating-linear-gradient(-45deg, var(--green-500) 0 10px, var(--green-300) 10px 20px);
+  border-right: 2px solid var(--ink);
+  transition: width .5s var(--ease);
+}
+
+/* lưới chấm tiến trình (dots) */
+.dots { display: flex; gap: 8px; justify-content: center; }
+.dots i { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--ink); background: var(--paper); }
+.dots i.on { background: var(--green-500); }
+.dots i.cur { background: var(--sun-400); transform: scale(1.2); }
+
+/* ---------- Hiệu ứng ---------- */
+@keyframes pop-in { from { opacity: 0; transform: scale(.85) translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes fade-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes wiggle { 0%,100% { transform: rotate(0); } 25% { transform: rotate(-4deg); } 75% { transform: rotate(4deg); } }
+@keyframes shake { 0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-6px); } 40%,80% { transform: translateX(6px); } }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.anim-pop { animation: pop-in .45s var(--ease-bounce) both; }
+.anim-up { animation: fade-up .5s var(--ease) both; }
+.anim-shake { animation: shake .4s ease; }
+.anim-float { animation: float 4s ease-in-out infinite; }
+.stagger > * { animation: fade-up .5s var(--ease) both; }
+.stagger > *:nth-child(2) { animation-delay: .05s; }
+.stagger > *:nth-child(3) { animation-delay: .1s; }
+.stagger > *:nth-child(4) { animation-delay: .15s; }
+.stagger > *:nth-child(5) { animation-delay: .2s; }
+.stagger > *:nth-child(6) { animation-delay: .25s; }
+.stagger > *:nth-child(7) { animation-delay: .3s; }
+.stagger > *:nth-child(n+8) { animation-delay: .35s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

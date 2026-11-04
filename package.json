@@ -1,0 +1,11 @@
+{
+  "name": "ecobit-hub",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "python3 -m http.server 5173",
+    "stickers": "python3 scripts/sticker.py raw/ public/img/",
+    "qa": "python3 scripts/qa_screens.py"
+  }
+}

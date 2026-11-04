@@ -1,0 +1,78 @@
+/* ECObit HUB – design tokens. Bảng màu lấy từ Ebi + ảnh minh hoạ. */
+:root {
+  /* màu chính */
+  --ink: #24402E;          /* nét viền xanh nâu đậm */
+  --ink-soft: #4A6455;
+  --green-800: #1F5E39;
+  --green-700: #2E7D4F;    /* xanh lá đậm */
+  --green-500: #4FAE5A;    /* xanh lá tươi */
+  --green-300: #A8DB8F;
+  --green-100: #E3F4D8;
+  --aqua-500: #4DB6C4;     /* xanh nước thân chai */
+  --aqua-300: #9ED9E0;
+  --aqua-100: #DDF3F5;
+  --pink-400: #F28FA0;     /* hồng má */
+  --pink-100: #FDE3E7;
+  --sun-400: #F5BE3B;      /* vàng ngôi sao */
+  --sun-100: #FFF1C9;
+  --terra-500: #D2664A;    /* đỏ đất trong tranh */
+  --terra-100: #F9DED5;
+  --sand-200: #F3E6C4;
+  --cream: #FEF8E4;        /* nền */
+  --paper: #FFFDF7;        /* thẻ */
+
+  /* ngữ nghĩa */
+  --bg: var(--cream);
+  --surface: var(--paper);
+  --text: var(--ink);
+  --text-soft: var(--ink-soft);
+  --ok: var(--green-500);
+  --ok-bg: var(--green-100);
+  --bad: var(--terra-500);
+  --bad-bg: var(--terra-100);
+  --accent: var(--sun-400);
+
+  /* chữ */
+  --font-display: "Baloo 2", "Be Vietnam Pro", system-ui, sans-serif;
+  --font-body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.9375rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: clamp(1.5rem, 1.2rem + 1.4vw, 2.1rem);
+  --fs-2xl: clamp(1.9rem, 1.4rem + 2.6vw, 3.2rem);
+
+  /* hình khối kiểu sticker */
+  --line: 3px;
+  --radius-sm: 12px;
+  --radius: 20px;
+  --radius-lg: 28px;
+  --lift: 0 4px 0 var(--ink);
+  --lift-sm: 0 3px 0 var(--ink);
+  --shadow-soft: 0 10px 30px -12px rgba(36, 64, 46, .35);
+  --sticker-shadow: drop-shadow(0 4px 0 rgba(36, 64, 46, .18)) drop-shadow(0 10px 18px rgba(36, 64, 46, .18));
+
+  /* bố cục */
+  --topbar-h: 64px;
+  --tabbar-h: 0px;
+  --gutter: clamp(16px, 3vw, 32px);
+  --maxw: 1120px;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --ease-bounce: cubic-bezier(.34, 1.56, .64, 1);
+
+  /* màu 7 mã nhựa */
+  --code-pet: #4DB6C4;
+  --code-hdpe: #4FAE5A;
+  --code-pvc: #8A8F98;
+  --code-ldpe: #9C7BC9;
+  --code-pp: #F5BE3B;
+  --code-ps: #D2664A;
+  --code-other: #6B7FD1;
+}
+
+@media (max-width: 860px) {
+  :root {
+    --topbar-h: 56px;
+    --tabbar-h: calc(64px + env(safe-area-inset-bottom, 0px));
+  }
+}
