@@ -1,0 +1,293 @@
+/* ECO DISCOVER – lưới mã nhựa, thẻ chi tiết, đoán mã, thẻ lật. */
+.dv-home, .dv-detail, .dv-game, .dv-facts { gap: 8px; }
+
+/* Khung ảnh cố định: ảnh tỉ lệ nào cũng vừa, thẻ không to nhỏ lệch nhau */
+.dv-pic { position: relative; display: block; min-height: 0; min-width: 0; }
+.dv-pic > * { position: absolute; top: 6px; left: 6px; width: calc(100% - 12px); height: calc(100% - 12px); object-fit: contain; }
+.dv-pic > .eng-emoji { font-size: 3rem; }
+.dv-resin { flex: none; display: block; line-height: 0; }
+
+/* Đầu màn con: quay lại + tiêu đề + phần phụ */
+.dv-head { flex: none; display: flex; align-items: center; gap: 10px; }
+.dv-head .btn-back { min-height: 44px; font-size: 1rem; }
+.dv-title { margin: 0; font-size: 1.2rem; white-space: nowrap; }
+.dv-progress { flex: 1; min-width: 40px; }
+
+/* ---------- #/discover ---------- */
+.dv-home-head { flex: none; display: flex; align-items: flex-end; gap: 8px; }
+.dv-home-head .eng-coach { flex: 1; min-width: 0; }
+.dv-home-title {
+  position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0);
+}
+.dv-count { flex: none; font-size: var(--fs-md); padding: 3px 9px; align-self: center; }
+.dv-home-deco { display: none; }
+
+.dv-grid {
+  flex: 1 1 0; min-height: 0; display: grid; gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+}
+.dv-card {
+  --c: var(--aqua-300);
+  position: relative; min-width: 0; min-height: 0;
+  display: flex; flex-direction: column;
+  color: var(--ink); text-decoration: none; background: var(--paper);
+  border: var(--line) solid var(--ink); border-radius: var(--radius-sm); box-shadow: var(--lift-sm);
+  overflow: hidden; touch-action: manipulation;
+  transition: transform .12s var(--ease), box-shadow .12s var(--ease);
+}
+.dv-card:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); }
+.dv-card .dv-pic { flex: 1 1 0; }
+.dv-card .dv-pic::before { content: ""; position: absolute; top: 0; right: 0; bottom: 0; left: 0; background: var(--c); opacity: .2; }
+.dv-foot {
+  flex: none; display: flex; align-items: center; justify-content: center; gap: 4px;
+  padding: 3px 2px; border-top: 2px solid var(--ink);
+}
+.dv-foot .resin { width: 28px; height: 25px; }
+.dv-abbr { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; line-height: 1.2; }
+.dv-card-vn { display: none; }
+.dv-check {
+  position: absolute; top: 4px; right: 4px; width: 26px; height: 26px;
+  display: grid; place-items: center; color: #fff; background: var(--green-500);
+  border: 2px solid var(--ink); border-radius: 50%;
+}
+
+.dv-entries { grid-column: span 2; min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 8px; }
+.dv-entry {
+  position: relative; flex: 1 1 0; min-height: 44px; display: flex; align-items: center; gap: 8px; padding: 4px 10px;
+  color: var(--ink); text-decoration: none; background: var(--sun-400);
+  border: var(--line) solid var(--ink); border-radius: var(--radius-sm); box-shadow: var(--lift-sm);
+  touch-action: manipulation; transition: transform .12s var(--ease), box-shadow .12s var(--ease);
+}
+.dv-entry:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); }
+.dv-entry-facts { background: var(--aqua-300); }
+.dv-entry-ico { flex: none; display: block; line-height: 0; }
+.dv-entry-text { flex: 1; min-width: 0; font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; line-height: 1.2; }
+.dv-entry-done {
+  flex: none; width: 26px; height: 26px; display: grid; place-items: center; color: #fff;
+  background: var(--green-500); border: 2px solid var(--ink); border-radius: 50%;
+}
+
+/* ---------- #/discover/<mã> ---------- */
+.dv-detail .dv-head { justify-content: space-between; }
+.dv-pager { display: flex; align-items: center; gap: 6px; }
+.dv-pager-num { min-width: 30px; text-align: center; font-family: var(--font-display); font-weight: 800; }
+.dv-nav { width: 44px; min-height: 44px; height: 44px; box-shadow: var(--lift-sm); }
+.dv-nav-prev svg { transform: scaleX(-1); }
+
+.dv-sheet { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; gap: 8px; }
+.dv-hero { flex: none; display: flex; gap: 10px; align-items: stretch; }
+.dv-hero .dv-pic {
+  flex: none; width: 124px; height: 150px; background: var(--paper);
+  border: var(--line) solid var(--ink); border-radius: var(--radius-sm); box-shadow: var(--lift-sm); overflow: hidden;
+}
+.dv-hero .dv-pic::before { content: ""; position: absolute; top: 0; right: 0; bottom: 0; left: 0; background: var(--c); opacity: .2; }
+.dv-hero-text { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
+.dv-hero-code { display: flex; align-items: center; gap: 8px; margin-bottom: 2px; }
+.dv-hero-abbr { margin: 0; font-size: var(--fs-xl); }
+.dv-hero-name, .dv-hero-vn { margin: 0; line-height: 1.25; }
+.dv-hero-name { font-weight: 700; }
+.dv-hero-vn { color: var(--text-soft); }
+
+.dv-tabs-wrap { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
+.dv-tabs { flex: none; display: flex; gap: 3px; padding: 0 4px; }
+.dv-tab {
+  flex: 1 1 auto; min-height: 44px; min-width: 0; padding: 2px 4px; font-weight: 700; font-size: 1rem; line-height: 1.15; white-space: nowrap;
+  color: var(--ink); background: var(--sand-200);
+  border: 2px solid var(--ink); border-bottom: 0; border-radius: 12px 12px 0 0;
+  touch-action: manipulation;
+}
+.dv-tab[aria-selected="true"] { position: relative; top: 3px; z-index: 1; background: var(--paper); font-weight: 800; }
+.dv-tabpanel {
+  flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; gap: 8px; padding: 10px 12px;
+  background: var(--paper); border: var(--line) solid var(--ink); border-radius: var(--radius); box-shadow: var(--lift-sm);
+}
+.dv-panel-title { flex: none; margin: 0; font-size: 1.2rem; }
+.dv-text { margin: 0; font-size: 1.1rem; line-height: 1.42; }
+.dv-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.dv-list li { position: relative; padding-left: 22px; font-size: 1.1rem; line-height: 1.32; }
+.dv-list li::before {
+  content: ""; position: absolute; left: 0; top: 4px; width: 14px; height: 14px;
+  background: var(--c); border: 2px solid var(--ink); border-radius: 50%;
+}
+
+/* Thang tái chế: vạch tô tới mức đạt + chữ đậm, không chỉ dựa vào màu */
+.dv-meter { --lv: var(--bad); flex: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; }
+.dv-meter.lv-1 { --lv: var(--sun-400); }
+.dv-meter.lv-2 { --lv: var(--ok); }
+.dv-seg { text-align: center; line-height: 1.3; color: var(--text-soft); }
+.dv-seg i { display: block; height: 18px; margin-bottom: 3px; background: var(--sand-200); border: 2px solid var(--ink); }
+.dv-seg:first-child i { border-radius: 999px 0 0 999px; }
+.dv-seg:last-child i { border-radius: 0 999px 999px 0; }
+.dv-seg.on i { background: var(--lv); }
+.dv-seg.cur { font-weight: 800; color: var(--ink); }
+
+.dv-fact { flex: 1 1 0; min-height: 0; display: flex; align-items: flex-end; gap: 16px; }
+.dv-fact .ebi { flex: none; }
+.dv-fact .bubble { flex: 1; min-width: 0; max-width: none; padding: 8px 12px; line-height: 1.34; border-radius: 18px; }
+
+/* ---------- #/discover/identify ---------- */
+.dv-host { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
+.dv-id { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; gap: 8px; }
+.dv-id .eng-coach { min-height: 62px; align-items: center; }
+.dv-id .eng-coach .bubble, .dv-facts-foot .bubble { min-height: 46px; display: flex; align-items: center; }
+.dv-finish { flex: 1; }
+
+.dv-shelf {
+  flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; gap: 4px; padding: 6px 6px 0;
+  background: var(--sand-200); border: var(--line) solid var(--ink); border-radius: var(--radius); box-shadow: var(--lift-sm);
+  overflow: hidden;
+}
+.dv-row {
+  flex: 1 1 0; min-height: 0; display: flex; gap: 4px; justify-content: center;
+  margin: 0 -6px; padding: 0 6px; border-bottom: 8px solid var(--terra-500);
+}
+.dv-row:last-child { border-bottom-width: 10px; }
+.dv-obj {
+  position: relative; flex: 1 1 0; min-width: 0; min-height: 44px; padding: 0;
+  background: transparent; border: 0; border-radius: 12px; touch-action: manipulation;
+}
+.dv-obj img { position: absolute; top: 3px; left: 3px; width: calc(100% - 6px); height: calc(100% - 3px); object-fit: contain; object-position: center bottom; pointer-events: none; }
+.dv-obj.is-on { background: var(--sun-100); box-shadow: inset 0 0 0 3px var(--sun-400); }
+.dv-obj-tag {
+  position: absolute; left: 0; right: 0; top: 2px; width: max-content; margin: 0 auto;
+  padding: 0 6px; font-family: var(--font-display); font-weight: 800; font-size: 1rem; line-height: 1.3; white-space: nowrap;
+  background: var(--paper); border: 2px solid var(--ink); border-radius: 8px; animation: pop-in .35s var(--ease-bounce) both;
+}
+
+.dv-panel {
+  flex: none; height: 186px; display: flex; flex-direction: column; gap: 6px; padding: 7px 6px;
+  background: var(--paper); border: var(--line) solid var(--ink); border-radius: var(--radius-sm); box-shadow: var(--lift-sm);
+}
+.dv-msg { flex: 1 1 0; min-height: 0; margin: 0; padding: 0 4px; display: flex; flex-direction: column; justify-content: center; gap: 2px; line-height: 1.3; }
+.dv-msg-label { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; line-height: 1.2; color: var(--green-700); }
+.dv-choices { flex: none; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 4px; }
+.dv-choices[hidden] { display: none; }
+.dv-choice {
+  grid-column: span 3; min-width: 0; min-height: 44px; padding: 0 1px;
+  display: flex; align-items: center; justify-content: center; gap: 2px;
+  font-family: var(--font-display); font-size: 1rem; color: var(--ink);
+  background: var(--paper); border: 2px solid var(--ink); border-radius: 12px; touch-action: manipulation;
+}
+.dv-choice:nth-child(n+5) { grid-column: span 4; }
+.dv-choice:active { background: var(--sun-100); }
+.dv-choice[disabled] { opacity: .4; }
+.dv-choice.is-wrong { background: var(--bad-bg); }
+.dv-choice .resin { width: 24px; height: 22px; }
+
+/* ---------- #/discover/facts ---------- */
+.dv-flips {
+  flex: 1 1 0; min-height: 0; display: grid; gap: 8px;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+}
+.dv-flip {
+  display: block; width: 100%; height: 100%; min-height: 0; padding: 0; color: var(--ink); text-align: left;
+  background: none; border: 0; perspective: 1000px; touch-action: manipulation;
+}
+.dv-flip-inner {
+  position: relative; display: block; width: 100%; height: 100%;
+  transform-style: preserve-3d; -webkit-transform-style: preserve-3d;
+  transition: transform .5s var(--ease);
+}
+.dv-flip.is-flipped .dv-flip-inner { transform: rotateY(180deg); }
+.dv-face {
+  position: absolute; top: 0; right: 0; bottom: 3px; left: 0;
+  -webkit-backface-visibility: hidden; backface-visibility: hidden;
+  background: var(--paper); border: var(--line) solid var(--ink); border-radius: var(--radius-sm); box-shadow: var(--lift-sm);
+  overflow: hidden;
+}
+.dv-front { display: flex; align-items: stretch; gap: 10px; padding: 6px 10px 6px 6px; }
+.dv-front .dv-pic { flex: none; width: 104px; }
+.dv-front-text { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px; }
+.dv-tag { font-size: 1rem; padding: 0 9px; }
+.dv-front-title { font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; line-height: 1.2; }
+.dv-front-hint { color: var(--text-soft); line-height: 1.25; }
+.dv-back {
+  transform: rotateY(180deg); display: flex; align-items: center; padding: 4px 10px;
+  background: var(--sun-100); font-size: 1rem; line-height: 1.3;
+}
+.dv-facts-foot { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.dv-facts-foot .eng-coach { flex: 0 1 auto; min-width: 0; align-items: center; }
+.dv-deal { flex: none; padding: 8px 14px; }
+
+/* Giảm chuyển động: đổi mặt ngay, không xoay 3D */
+@media (prefers-reduced-motion: reduce) {
+  .dv-flip-inner, .dv-flip.is-flipped .dv-flip-inner { transform: none; transition: none; }
+  .dv-back { transform: none; visibility: hidden; }
+  .dv-flip.is-flipped .dv-back { visibility: visible; }
+  .dv-flip.is-flipped .dv-front { visibility: hidden; }
+}
+
+@media (hover: hover) {
+  .dv-card:hover, .dv-entry:hover { transform: translateY(-2px); box-shadow: var(--lift); }
+  .dv-obj:hover { background: var(--sun-100); }
+  .dv-choice:not([disabled]):hover { background: var(--sun-100); }
+}
+
+/* ---------- Máy tính ---------- */
+@media (min-width: 861px) {
+  .dv-home, .dv-detail, .dv-game, .dv-facts { gap: 14px; }
+  .dv-title { font-size: var(--fs-xl); }
+
+  .dv-home-head { align-items: center; gap: 14px; }
+  .dv-home-title {
+    position: static; width: auto; height: auto; margin: 0; clip: auto; overflow: visible;
+    flex: none; font-size: var(--fs-2xl); white-space: nowrap;
+  }
+  .dv-count { padding: 4px 12px; }
+  .dv-home-deco { display: block; flex: none; width: 84px; height: 84px; object-fit: contain; }
+  .dv-grid { gap: 16px; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); }
+  .dv-card { border-radius: var(--radius); }
+  .dv-foot { gap: 8px; padding: 6px 8px 0; border-top-width: 3px; }
+  .dv-foot .resin { width: 40px; height: 36px; }
+  .dv-abbr { font-size: 1.35rem; }
+  .dv-card-vn { display: block; padding: 0 8px 6px; text-align: center; line-height: 1.25; min-height: 2.5em; color: var(--text-soft); }
+  .dv-check { top: 8px; right: 8px; width: 32px; height: 32px; }
+  .dv-entries { grid-column: auto; gap: 16px; }
+  .dv-entry { padding: 8px 16px; gap: 12px; border-radius: var(--radius); }
+  .dv-entry-text { font-size: 1.25rem; }
+
+  .dv-sheet { flex-direction: row; gap: 24px; }
+  .dv-hero { flex: 0 0 40%; min-width: 0; flex-direction: column; gap: 12px; }
+  .dv-hero .dv-pic { flex: 1 1 0; width: auto; height: auto; border-radius: var(--radius); }
+  .dv-hero .dv-pic > * { top: 14px; left: 14px; width: calc(100% - 28px); height: calc(100% - 28px); }
+  .dv-hero-text { flex: none; }
+  .dv-hero-name { font-size: var(--fs-lg); font-family: var(--font-display); }
+  .dv-tabs { gap: 6px; padding: 0 12px; }
+  .dv-tab { min-height: 52px; font-size: 1.1rem; border-width: var(--line); }
+  .dv-tabpanel { padding: 20px 24px; gap: 14px; }
+  .dv-panel-title { font-size: var(--fs-xl); }
+  .dv-text, .dv-list li { font-size: 1.3rem; }
+  .dv-list { gap: 14px; }
+  .dv-list li { padding-left: 28px; }
+  .dv-list li::before { top: 8px; width: 18px; height: 18px; }
+  .dv-fact .bubble { font-size: 1.15rem; padding: 14px 18px; }
+  .dv-seg { font-size: 1.15rem; }
+
+  .dv-id { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr) 400px; grid-template-rows: auto minmax(0, 1fr); }
+  .dv-shelf { grid-column: 1; grid-row: 1 / 3; gap: 10px; padding: 12px 12px 0; }
+  .dv-row { margin: 0 -12px; padding: 0 12px; gap: 12px; border-bottom-width: 12px; }
+  .dv-row:last-child { border-bottom-width: 14px; }
+  .dv-obj-tag { font-size: 1.1rem; top: 4px; }
+  .dv-id .eng-coach { grid-column: 2; grid-row: 1; }
+  .dv-panel { grid-column: 2; grid-row: 2; height: auto; min-height: 0; padding: 14px; gap: 12px; border-radius: var(--radius); }
+  .dv-msg { font-size: 1.25rem; gap: 8px; }
+  .dv-msg-label { font-size: 1.5rem; }
+  .dv-choices { gap: 8px; }
+  .dv-choice { flex-direction: column; min-height: 88px; gap: 2px; font-size: 1.15rem; }
+  .dv-choice .resin { width: 42px; height: 38px; }
+
+  .dv-flips { gap: 16px; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); }
+  .dv-face { border-radius: var(--radius); }
+  .dv-front { flex-direction: column; padding: 10px 14px 12px; gap: 6px; }
+  .dv-front .dv-pic { flex: 1 1 0; width: 100%; }
+  .dv-front .dv-pic > .eng-emoji { font-size: 4.5rem; }
+  .dv-front-text { flex: none; }
+  .dv-back { padding: 14px 18px; font-size: 1.1rem; line-height: 1.42; }
+}
+
+/* Máy rất thấp: giữ chiều cao tối thiểu, màn được phép cuộn nhẹ */
+@media (max-height: 639px) {
+  .dv-home, .dv-detail, .dv-game, .dv-facts { flex: 1 0 auto; min-height: 540px; }
+}
