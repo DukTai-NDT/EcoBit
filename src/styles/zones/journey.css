@@ -55,7 +55,7 @@
 .jr-stop-text { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 1px; }
 .jr-stop-title { font-family: var(--font-display); font-weight: 700; font-size: 1rem; line-height: 1.12; }
 .jr-stop .chip { padding: 0 8px; font-size: 1rem; line-height: 1.25; }
-.jr-stop.is-done .jr-disc { background: var(--green-500); color: #fff; }
+.jr-stop.is-done .jr-disc { background: var(--green-700); color: #fff; }
 .jr-stop.is-next .jr-disc { background: var(--sun-400); animation: jr-pulse 1.8s ease-in-out infinite; }
 .jr-stop.is-next .jr-stop-card { background: var(--sun-100); }
 .jr-stop.is-later .jr-stop-card { background: rgba(255, 253, 247, .72); border-style: dashed; box-shadow: none; }

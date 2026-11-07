@@ -123,7 +123,7 @@ function renderStage(el, { store, go }, stage) {
   const i = stage.id - 1;
   const t = timers();
   let stopEngine = null;
-  let claim = null;      // nhận mảnh đang chờ hoạt ảnh bay xong
+  let landed = null;     // cập nhật màn khi hoạt ảnh bay xong
 
   const title = h('header', { class: 'jr-title' },
     h('span', { class: 'chip chip-sun' }, `Chặng ${stage.id}/${stages.length}`),
@@ -198,7 +198,7 @@ function renderStage(el, { store, go }, stage) {
   function showReward() {
     root.classList.remove('is-task');
     const hadPiece = store.state.journey[i];
-    const board = frame(store.state.journey);
+    const board = frame(store.state.journey.slice());   // khung vẽ trước khi ghi, mảnh mới sáng khi bay tới
     let face = ebi({ pose: 'cheer', mood: 'happy', size: 84, still: true });
     const tile = h('div', { class: 'jr-tile anim-pop' }, visual({ img: stage.pieceImg, label: '' }, 'jr-tile-img'));
     const note = h('p', { class: 'jr-gift-note', role: 'status' },
@@ -213,9 +213,10 @@ function renderStage(el, { store, go }, stage) {
     nav.set(mapLink(), null, nextBtn);
     if (hadPiece) return;
 
-    claim = () => {
-      claim = null;
-      store.journeyPiece(i);    // chỉ gọi khi mảnh đã về khung: toast và điểm hiện đúng lúc
+    store.journeyPiece(i);      // xong nhiệm vụ là có mảnh; hoạt ảnh bay chỉ để hiển thị
+
+    landed = () => {
+      landed = null;
       tile.remove();
       board.slots[i].classList.add('is-got', 'is-new');
       board.slots[i].setAttribute('aria-label', `Mảnh ${stage.id}: ${stage.piece}`);
@@ -227,10 +228,10 @@ function renderStage(el, { store, go }, stage) {
       nextBtn.focus({ preventScroll: true });
     };
 
-    if (reducedMotion()) { claim(); return; }
+    if (reducedMotion()) { landed(); return; }
     t.later(() => {
       fly(tile, board.slots[i]);
-      t.later(() => claim?.(), FLIGHT + 40);
+      t.later(() => landed?.(), FLIGHT + 40);
     }, HOLD_PIECE);
   }
 
@@ -259,7 +260,6 @@ function renderStage(el, { store, go }, stage) {
   return () => {
     t.clear();
     stopEngine?.();
-    claim?.();     // rời màn giữa lúc mảnh đang bay: nhiệm vụ đã xong nên vẫn nhận mảnh
   };
 }
 
@@ -315,7 +315,7 @@ export default {
     if (!sub) return renderMap(el, ctx);
     if (sub === 'finale') return renderFinale(el, ctx);
     const stage = stages.find((s) => String(s.id) === sub);
-    if (!stage) { ctx.go('/journey'); return undefined; }
+    if (!stage) { ctx.replace('/journey'); return undefined; }
     return renderStage(el, ctx, stage);
   },
 };

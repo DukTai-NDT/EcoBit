@@ -369,7 +369,7 @@ export default {
     if (sub === 'identify') return renderIdentify(el, ctx);
     if (sub === 'facts') return renderFacts(el);
     const code = codes.find((c) => c.id === sub);
-    if (!code) { ctx.go('/discover'); return undefined; }
+    if (!code) { ctx.replace('/discover'); return undefined; }
     return renderDetail(el, ctx, code);
   },
 };

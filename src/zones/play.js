@@ -132,7 +132,7 @@ export default {
     const sub = ctx.params[0];
     if (!sub) { renderHub(el, ctx); return undefined; }
     const game = GAMES.find((g) => g.id === sub);
-    if (!game) { ctx.go('/play'); return undefined; }
+    if (!game) { ctx.replace('/play'); return undefined; }
     return renderGame(el, ctx, game);
   },
 };

@@ -449,7 +449,7 @@ export default {
     if (!sub) { renderHub(el, ctx); return undefined; }
     if (sub === 'recycle') return renderRecycle(el, ctx);
     if (sub === 'slider') { renderSlider(el); return undefined; }
-    ctx.go('/lab');
+    ctx.replace('/lab');
     return undefined;
   },
 };

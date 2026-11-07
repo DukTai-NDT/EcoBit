@@ -99,7 +99,7 @@
   font-family: var(--font-display); font-weight: 800; background: var(--sun-100); border: 2px solid var(--ink);
 }
 .quiz-opt.is-ok { background: var(--ok-bg); border-color: var(--ok); }
-.quiz-opt.is-ok .quiz-letter { background: var(--ok); color: #fff; }
+.quiz-opt.is-ok .quiz-letter { background: var(--green-700); color: #fff; }
 .quiz-opt.is-bad { background: var(--bad-bg); border-color: var(--bad); }
 .quiz-opt.is-bad .quiz-letter { background: var(--bad); color: #fff; }
 .quiz-opt.is-out { display: none; }

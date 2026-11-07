@@ -95,7 +95,7 @@ p { margin: 0 0 .75em; text-wrap: pretty; }
 .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 var(--ink); }
 .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); }
 .btn[disabled] { opacity: .45; pointer-events: none; }
-.btn-primary { --btn-bg: var(--green-500); --btn-fg: #fff; }
+.btn-primary { --btn-bg: var(--green-700); --btn-fg: #fff; }
 .btn-sun { --btn-bg: var(--sun-400); }
 .btn-aqua { --btn-bg: var(--aqua-300); }
 .btn-ghost { --btn-bg: transparent; box-shadow: none; }

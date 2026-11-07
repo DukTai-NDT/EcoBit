@@ -71,16 +71,34 @@ export function vibrate(pattern = 30) {
   try { if (navigator.vibrate) navigator.vibrate(pattern); } catch (e) { /* bỏ qua */ }
 }
 
-/** Thông báo nhỏ ở trên cùng. type: 'info' | 'points' | 'badge' */
-export function toast(text, { icon = '🌿', type = 'info', ms = 2600 } = {}) {
+/** Thông báo nhỏ ngay dưới thanh trên: xếp hàng, hiện lần lượt tối đa 1 cái. type: 'info' | 'points' | 'badge' */
+const TOAST_MS = 1800;
+const toastQueue = [];
+let toastOn = false;
+export function toast(text, { icon = '🌿', type = 'info' } = {}) {
+  toastQueue.push({ text, icon, type });
+  nextToast();
+}
+function nextToast() {
   const box = document.getElementById('toasts');
-  if (!box) return;
+  if (toastOn || !box || !toastQueue.length) return;
+  const { text, icon, type } = toastQueue.shift();
+  toastOn = true;
   const t = h('div', { class: `toast ${type}`, role: 'status' }, h('span', { class: 'toast-ico', 'aria-hidden': 'true' }, icon), h('span', null, text));
   box.append(t);
-  setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 320); }, ms);
+  setTimeout(() => {
+    t.classList.add('out');
+    setTimeout(() => { t.remove(); toastOn = false; nextToast(); }, 320);
+  }, TOAST_MS);
 }
 
-/** Hộp thoại. content: Node | string. Trả về {close, el}. */
+const openModals = new Set();
+/** Đóng mọi hộp thoại đang mở (khi đổi màn): tiêu điểm không trả về nút của màn cũ. */
+export function closeModals() { openModals.forEach((close) => close(false)); }
+
+const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+/** Hộp thoại, giữ tiêu điểm bên trong. content: Node | string. Trả về {close, el}. */
 export function modal(content, { label = 'Hộp thoại', onClose } = {}) {
   const prevFocus = document.activeElement;
   const box = h('div', { class: 'modal', role: 'dialog', 'aria-modal': 'true', 'aria-label': label });
@@ -88,16 +106,33 @@ export function modal(content, { label = 'Hộp thoại', onClose } = {}) {
   box.append(closeBtn);
   if (typeof content === 'string') box.insertAdjacentHTML('beforeend', content); else box.append(content);
   const back = h('div', { class: 'modal-backdrop', onclick: (e) => { if (e.target === back) close(); } }, box);
-  const onKey = (e) => { if (e.key === 'Escape') close(); };
+  const onKey = (e) => {
+    if (e.key === 'Escape') { close(); return; }
+    if (e.key !== 'Tab') return;
+    const list = [...box.querySelectorAll(FOCUSABLE)].filter((n) => n.offsetParent !== null);
+    if (!list.length) { e.preventDefault(); return; }
+    const first = list[0];
+    const last = list[list.length - 1];
+    const at = document.activeElement;
+    if (!box.contains(at) || (e.shiftKey ? at === first : at === last)) {
+      e.preventDefault();
+      (e.shiftKey ? last : first).focus();
+    }
+  };
   document.addEventListener('keydown', onKey);
   document.body.append(back);
   closeBtn.focus();
-  function close() {
+  let closed = false;
+  function close(restore = true) {
+    if (closed) return;
+    closed = true;
+    openModals.delete(close);
     document.removeEventListener('keydown', onKey);
     back.remove();
-    if (prevFocus && prevFocus.focus) prevFocus.focus();
+    if (restore && prevFocus && prevFocus.isConnected && prevFocus.focus) prevFocus.focus();
     onClose && onClose();
   }
+  openModals.add(close);
   return { close, el: box };
 }
 

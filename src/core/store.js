@@ -53,9 +53,14 @@ function fresh() {
 }
 
 let mem = null;
+let lastRaw = null;   // chuỗi đã đọc/ghi gần nhất: khác đi nghĩa là tab khác vừa ghi
+function readRaw() {
+  try { return localStorage.getItem(KEY); } catch (e) { return null; }
+}
 function load() {
   try {
-    const raw = localStorage.getItem(KEY);
+    const raw = readRaw();
+    lastRaw = raw;
     if (raw) {
       const s = { ...fresh(), ...JSON.parse(raw) };
       if (!Array.isArray(s.journey) || s.journey.length !== JOURNEY_STAGES) s.journey = Array(JOURNEY_STAGES).fill(false);
@@ -65,7 +70,11 @@ function load() {
   return fresh();
 }
 function save() {
-  try { localStorage.setItem(KEY, JSON.stringify(mem)); } catch (e) { /* bỏ qua */ }
+  try {
+    const raw = JSON.stringify(mem);
+    localStorage.setItem(KEY, raw);
+    lastRaw = raw;
+  } catch (e) { /* bỏ qua */ }
 }
 
 const listeners = {};
@@ -91,6 +100,16 @@ function commit(gained, newBadges) {
 }
 
 mem = load();
+
+/** Tab khác đã ghi: nạp lại để không ghi đè tiến độ mới bằng bản cũ. */
+function syncFromStorage() {
+  if (readRaw() === lastRaw) return;
+  mem = load();
+  emit('change', mem);
+}
+window.addEventListener('storage', (e) => { if (e.key === KEY || e.key === null) syncFromStorage(); });
+window.addEventListener('pageshow', syncFromStorage);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) syncFromStorage(); });
 
 export const store = {
   get state() { return mem; },

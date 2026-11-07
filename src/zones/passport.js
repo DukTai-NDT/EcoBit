@@ -59,7 +59,12 @@ function mountMain(el) {
     const cur = store.state.profile.avatar;
     const grid = h('div', { class: 'pp-pick' }, AVATARS.map((p) => h('button', {
       class: 'pp-pick-item', type: 'button', 'aria-pressed': p.id === cur ? 'true' : 'false',
-      onclick: () => { store.setProfile({ avatar: p.id }); dlg.close(); render(); },
+      onclick: () => {
+        store.setProfile({ avatar: p.id });
+        dlg.close();
+        render();
+        document.querySelector('.pp-avatar')?.focus({ preventScroll: true });   // nút cũ đã được dựng lại
+      },
     }, ebi({ pose: p.id, size: 76, still: true, title: '' }), h('span', null, p.label))));
     const dlg = modal(h('div', null, h('h2', { class: 'pp-modal-title' }, 'Chọn Ebi của bạn'), grid), { label: 'Chọn tư thế Ebi' });
   }

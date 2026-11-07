@@ -57,7 +57,7 @@ a.lab-card:active { transform: translateY(2px); }
   position: relative; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%;
   background: var(--paper); border: 2px solid var(--ink); line-height: 1;
 }
-.lab-stepper li.is-done > span:first-child { background: var(--green-500); color: #fff; }
+.lab-stepper li.is-done > span:first-child { background: var(--green-700); color: #fff; }
 .lab-stepper li.is-cur > span:first-child { background: var(--sun-400); transform: scale(1.14); }
 
 /* ---------- Bước 1 ---------- */

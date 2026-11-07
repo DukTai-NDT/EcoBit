@@ -280,7 +280,7 @@ def tap(page, loc, mode):
             if loc.is_enabled():
                 break
             page.wait_for_timeout(50)
-        loc.scroll_into_view_if_needed(timeout=2000)   # khung xoay ngang: nút có thể nằm dưới nếp gấp
+        loc.evaluate("e => e.scrollIntoView({ block: 'nearest' })")   # xoay ngang: nút có thể nằm dưới nếp gấp (nút có hoạt ảnh không 'đứng yên')
         r = loc.bounding_box()
         page.touchscreen.tap(r['x'] + r['width'] / 2, r['y'] + r['height'] / 2)
     else:
