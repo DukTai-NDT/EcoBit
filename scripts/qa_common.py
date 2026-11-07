@@ -17,6 +17,7 @@ if hasattr(sys.stdout, "reconfigure"):  # Windows mặc định cp1252, in tiế
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SHOTS = os.path.join(ROOT, 'qa-shots')
+SERVE_ROOT = os.path.join(ROOT, os.environ['QA_ROOT']) if os.environ.get('QA_ROOT') else ROOT
 KEY = 'ecobit.v1'
 
 VIEWPORTS = {
@@ -60,7 +61,8 @@ def free_port():
 @contextmanager
 def server():
     port = free_port()
-    srv = subprocess.Popen([sys.executable, '-m', 'http.server', str(port), '--bind', '127.0.0.1'], cwd=ROOT,
+    # QA_ROOT (tuỳ chọn): phục vụ thư mục khác, VD gói deploy/ecobit-hub. Đường dẫn tương đối tính từ gốc repo.
+    srv = subprocess.Popen([sys.executable, '-m', 'http.server', str(port), '--bind', '127.0.0.1'], cwd=SERVE_ROOT,
                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     for _ in range(50):
         try:

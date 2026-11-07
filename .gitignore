@@ -1,3 +1,4 @@
 qa-shots/
 __pycache__/
 .claude/worktrees/
+deploy/

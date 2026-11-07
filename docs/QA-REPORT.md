@@ -160,3 +160,17 @@ Thứ tự đề xuất, chưa sửa gì:
 9. Thêm `.gitignore` cho `qa-shots/`.
 
 Script mới: `scripts/qa_common.py`, `qa_screens.py` (đã mở rộng), `qa_play.py`, `qa_audit.py`. Ảnh bằng chứng: `docs/qa-evidence/` (mục này thêm ngoài phần "Sở hữu" để báo cáo có ảnh).
+
+## Hồi quy trước bản xem trước (M7.2)
+
+Commit đã kiểm: `127d16e` (M7.1, ký hiệu nhựa Lab bước 1) + script M7.2. Ngày 07/11/2026.
+
+| Bộ test | Kết quả |
+|---|---|
+| `node scripts/validate_data.mjs` | 9 file · 0 lỗi · 0 cảnh báo |
+| `python3 scripts/qa_play.py` (mọi nhóm) | **216/216 PASS** |
+| `python3 scripts/qa_screens.py` (33 route, 10 khung, kèm trạng thái) | 1624 trạng thái · 0 lỗi console · 0 lỗi 404 · 6 khung chính không cuộn, không cuộn ngang · xoay ngang: mọi nút chính bấm được · Puzzle: 0 ô chồng |
+| Gói `deploy/ecobit-hub` (`QA_ROOT`, 7 route đại diện) | 70 trạng thái · 0 lỗi console · 0 lỗi 404 |
+
+PM đã chấp nhận, không sửa: chip "Đổi" ở Passport lệch 3px; hộp chọn avatar cuộn khi xoay ngang (+16…46px); ô trống Puzzle ≥ 24px.
+Còn lại, để M8: khung phụ 320×568 vẫn cuộn +37…132px ở nhiều route (B20), `home/map` cuộn ngang 4px ở 320px.
