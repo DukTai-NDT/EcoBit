@@ -202,11 +202,18 @@
   .jr-finale-chips { display: none; }
 }
 
+/* Điện thoại hẹp: nhãn tranh vòng đời xuống dòng trong khung, không chạm mép */
+@media (max-width: 420px) {
+  .jr-node { width: 28%; }
+  .jr-node figcaption { max-width: 100%; padding: 1px 6px; border-radius: 12px; font-size: .875rem; line-height: 1.1; text-align: center; white-space: normal; }
+}
+
 /* Máy rất thấp: giữ nguyên bố cục, màn được phép cuộn nhẹ */
 @media (max-height: 639px) {
   .jr-road { min-height: 250px; }
   .jr-scene-box { min-height: 180px; }
   .jr-ring { width: min(100%, 300px); }
+  .jr-finale-body { flex: none; }
 }
 
 /* Điện thoại xoay ngang: ảnh + lời xếp hàng ngang, thanh nút nằm dưới nội dung, sân khấu cuộn */

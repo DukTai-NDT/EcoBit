@@ -10,42 +10,48 @@ export default {
       choices: [
         {
           id: 'c1',
-          label: 'Chai nước suối ghi PET 1',
+          label: 'Chai nước suối',
+          code: 'PET 1',
           img: 'code-pet',
           isPet: true,
           why: 'Đúng rồi! Mã PET 1 cho biết thân chai làm từ polyethylene terephthalate. Việc thu gom còn tùy nơi tiếp nhận.'
         },
         {
           id: 'c2',
-          label: 'Chai nước ngọt ghi PET 1',
+          label: 'Chai nước ngọt',
+          code: 'PET 1',
           img: 'item-soda-bottle',
           isPet: true,
           why: 'Chính xác! PET số 1 thường được dùng làm thân chai nước ngọt có ga.'
         },
         {
           id: 'c3',
-          label: 'Hộp trái cây có mã PET 1',
+          label: 'Hộp trái cây',
+          code: 'PET 1',
           img: 'item-clear-box',
           isPet: true,
           why: 'Đúng! Hộp này có ghi PET 1. Hộp trong suốt khác có thể làm từ loại nhựa khác, nên hãy đọc ký hiệu.'
         },
         {
           id: 'c4',
-          label: 'Can nước giặt ghi HDPE 2',
+          label: 'Can nước giặt',
+          code: 'HDPE 2',
           img: 'item-detergent',
           isPet: false,
           why: 'Đây là HDPE số 2, không phải PET. Nếu được tiếp nhận để tái chế, nó cần được phân loại phù hợp.'
         },
         {
           id: 'c5',
-          label: 'Khay xốp ghi PS 6',
+          label: 'Khay xốp',
+          code: 'PS 6',
           img: 'item-foam-tray',
           isPet: false,
           why: 'Đây là PS số 6, không phải PET. Cục An toàn thực phẩm khuyên không dùng hộp xốp PS đựng thức ăn đang nóng.'
         },
         {
           id: 'c6',
-          label: 'Hộp đựng cơm ghi PP 5',
+          label: 'Hộp đựng cơm',
+          code: 'PP 5',
           img: 'item-lunchbox',
           isPet: false,
           why: 'Đây là PP số 5, không phải PET. Muốn hâm bằng lò vi sóng, vẫn cần xem nhãn hướng dẫn của hộp.'

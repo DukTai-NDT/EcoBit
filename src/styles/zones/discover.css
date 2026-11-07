@@ -9,7 +9,6 @@
 
 /* Đầu màn con: quay lại + tiêu đề + phần phụ */
 .dv-head { flex: none; display: flex; align-items: center; gap: 10px; }
-.dv-head .btn-back { min-height: 44px; font-size: 1rem; }
 .dv-title { margin: 0; font-size: 1.2rem; white-space: nowrap; }
 .dv-progress { flex: 1; min-width: 40px; }
 
@@ -130,7 +129,6 @@
 .dv-host { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
 .dv-id { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; gap: 8px; }
 .dv-id .eng-coach { min-height: 62px; align-items: center; }
-.dv-id .eng-coach .bubble, .dv-facts-foot .bubble { min-height: 46px; display: flex; align-items: center; }
 .dv-finish { flex: 1; }
 
 .dv-shelf {

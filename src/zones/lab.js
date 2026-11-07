@@ -225,6 +225,8 @@ function renderRecycle(el, { store, go }) {
     function mark(c, btn) {
       btn.classList.add(c.isPet ? 'is-ok' : 'is-bad');
       btn.setAttribute('aria-pressed', 'true');
+      // mã nhựa chỉ hiện sau khi chọn
+      if (c.code && !btn.querySelector('.lab-choice-code')) btn.querySelector('.lab-choice-label').append(h('span', { class: 'chip lab-choice-code' }, c.code));
     }
     function tap(c, btn) {
       const again = run.picked.has(c.id);

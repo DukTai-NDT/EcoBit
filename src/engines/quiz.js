@@ -49,6 +49,7 @@ export function mountQuiz(el, config, { onComplete, onProgress } = {}) {
 
   function render(focusFirst) {
     stopTimer();
+    root.classList.remove('is-answered');
     const q = questions[i];
     let answered = false;
 
@@ -85,6 +86,7 @@ export function mountQuiz(el, config, { onComplete, onProgress } = {}) {
       if (answered) return;
       answered = true;
       stopTimer();
+      root.classList.add('is-answered');   // thu ảnh để khung giải thích hiện đủ
       const ok = n === q.answer;
       if (ok) correct++; else vibrate();
       line?.el.remove();

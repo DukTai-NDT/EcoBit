@@ -35,7 +35,7 @@
   /* chữ */
   --font-display: "Baloo 2", "Be Vietnam Pro", system-ui, sans-serif;
   --font-body: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --fs-xs: 0.8125rem;
+  --fs-xs: 0.875rem;       /* chip, nhãn phụ ≥ 14px */
   --fs-sm: 0.9375rem;
   --fs-md: 1rem;
   --fs-lg: 1.25rem;
@@ -80,7 +80,7 @@
 /* Điện thoại xoay ngang: thanh trên, thanh tab gọn lại để nhường chỗ cho sân khấu */
 @media (max-width: 860px) and (max-height: 480px) and (orientation: landscape) {
   :root {
-    --topbar-h: 44px;
+    --topbar-h: 50px;
     --tabbar-h: calc(46px + env(safe-area-inset-bottom, 0px));
   }
 }

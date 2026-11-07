@@ -44,6 +44,13 @@
 .play-progress { flex: 1; min-width: 40px; }
 .play-host { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
 
+/* Điện thoại thấp: sảnh vừa khít, không cuộn (B14) */
+@media (max-width: 860px) and (max-height: 700px) {
+  .play-grid { gap: 6px; }
+  .play-card { min-height: 54px; padding: 4px 10px 4px 8px; }
+  .play-points { padding: 4px 8px; }
+}
+
 @media (hover: hover) {
   .play-card:hover { transform: translateY(-2px); box-shadow: var(--lift); }
 }
