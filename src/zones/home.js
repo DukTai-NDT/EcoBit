@@ -1,4 +1,4 @@
-// ECO HOME – màn chào (Ebi + chuỗi biến đổi + CTA) và bản đồ 6 khu (#/home/map). Agent C.
+// ECO HOME – màn chào (Ebi + dải biến đổi + CTA) và bản đồ 6 khu (#/home/map).
 import { h, css, esc, icon, imgUrl, pick, reducedMotion, say } from '../core/ui.js';
 import { ebi, setEbi, react } from '../core/ebi.js';
 import store from '../core/store.js';
@@ -7,26 +7,26 @@ import stats from '../data/stats.js';
 import timeline from '../data/timeline.js';
 import codes from '../data/codes.js';
 
-// Chuỗi biến đổi chai → sản phẩm (ảnh public/img/step-*.webp)
+// Dải biến đổi chai → sản phẩm (ảnh public/img/step-*.webp). Lời bám theo src/data/lab.js.
 const STEPS = [
-  { img: 'step-1-bottle', name: 'Chai nhựa đã dùng', text: 'Được thu gom và phân loại riêng chai PET.' },
-  { img: 'step-2-flakes', name: 'Mảnh nhựa', text: 'Rửa sạch rồi nghiền thành mảnh nhỏ.' },
-  { img: 'step-3-pellets', name: 'Hạt nhựa', text: 'Nung chảy và ép thành hạt nhựa.' },
-  { img: 'step-4-yarn', name: 'Sợi polyester', text: 'Kéo thành sợi để dệt vải.' },
-  { img: 'step-5-products', name: 'Sản phẩm mới', text: 'Thành áo, ba lô, gấu bông…' },
+  { img: 'step-1-bottle', name: 'Chai đã dùng', text: 'Thu gom, phân loại riêng chai PET.' },
+  { img: 'step-2-flakes', name: 'Mảnh nhựa', text: 'Băm thành mảnh rồi rửa sạch.' },
+  { img: 'step-3-pellets', name: 'Hạt nhựa', text: 'Nấu chảy, lọc rồi tạo thành hạt.' },
+  { img: 'step-4-yarn', name: 'Sợi polyester', text: 'Có thể kéo sợi để dệt vải.' },
+  { img: 'step-5-products', name: 'Sản phẩm mới', text: 'Có thể thành áo, ba lô, gấu bông.' },
 ];
 const STEP_MS = 2800;
 
 // Câu Ebi nói khi được chạm
 const LINES = [
-  'Bạn biết không? Chai PET tái chế có thể thành <b>sợi polyester</b> để may áo đấy!',
+  'Chai PET tái chế có thể thành <b>sợi polyester</b> để dệt vải đấy!',
   'Lật đáy chai lên xem có <b>con số</b> trong hình tam giác không nhé!',
-  'Uống xong thì <b>rửa sạch, bóp dẹp</b> chai rồi bỏ vào thùng tái chế nha!',
+  'Uống xong thì <b>đổ cạn</b> chai rồi đưa đến điểm thu gom nha!',
   'Chơi minigame ở <b>ECO PLAY</b> để tích ECO POINT cùng mình nào!',
-  'Mỗi chiếc chai được phân loại đúng là một cơ hội để <b>tái sinh</b>!',
-  '<b>Một chiếc chai, muôn vàn khả năng</b> – nhớ câu này giúp mình nha!',
-  'Đi hết <b>5 chặng ECO JOURNEY</b> để ghép bức tranh vòng đời của mình nhé!',
-  'Hihi, nhột quá! Bạn chạm nhẹ thôi nha 😆',
+  'Mỗi chiếc chai phân loại đúng là một cơ hội <b>tái sinh</b>!',
+  '<b>Một chiếc chai, muôn vàn khả năng</b> – nhớ giúp mình nha!',
+  'Đi hết <b>5 chặng ECO JOURNEY</b> để ghép tranh vòng đời nhé!',
+  'Hihi, nhột quá! Bạn chạm nhẹ thôi nha!',
 ];
 const POSE_CYCLE = ['cheer', 'thumbs', 'recycle', 'earth', 'plant', 'megaphone'];
 
@@ -35,40 +35,26 @@ function places() {
   const s = store.summary();
   const labDone = store.isDone('lab:recycle');
   const next = timeline.find((t) => t.status === 'now') || timeline.find((t) => t.status === 'upcoming');
+  const viewed = Math.min(s.codesViewed, codes.length);
   return [
-    { id: 'discover', name: 'DISCOVER', desc: `Tìm hiểu ${codes.length} mã nhựa`, tone: 'aqua',
-      status: s.codesViewed ? `Đã xem ${Math.min(s.codesViewed, codes.length)}/${codes.length}` : 'Chưa ghé', done: s.codesViewed >= codes.length },
-    { id: 'journey', name: 'JOURNEY', desc: 'Theo chân chiếc chai', tone: 'sun',
-      status: `Chặng ${s.stagesDone}/${s.stagesTotal}`, done: s.stagesDone >= s.stagesTotal },
-    { id: 'lab', name: 'LAB', desc: 'Thí nghiệm tái chế', tone: 'pink',
-      status: labDone ? 'Đã làm' : 'Chưa thử', done: labDone },
-    { id: 'play', name: 'PLAY', desc: '5 minigame vui', tone: 'green',
-      status: `${s.gamesDone}/${s.gamesTotal} trò`, done: s.gamesDone >= s.gamesTotal },
-    { id: 'passport', name: 'PASSPORT', desc: 'Huy hiệu của bạn', tone: 'terra',
-      status: `${s.badges}/${s.badgesTotal} huy hiệu`, done: s.badges >= s.badgesTotal },
-    { id: 'connect', name: 'CONNECT', desc: 'Tin chiến dịch', tone: 'sand',
-      status: next ? `${next.title}` : 'Tin chiến dịch', done: false, info: true },
+    { id: 'discover', desc: `Khám phá ${codes.length} mã`, tone: 'aqua', value: viewed, total: codes.length, unit: 'mã đã xem' },
+    { id: 'journey', desc: 'Theo chân chai', tone: 'sun', value: s.stagesDone, total: s.stagesTotal, unit: 'chặng' },
+    { id: 'lab', desc: 'Thử tái chế', tone: 'pink', value: labDone ? 1 : 0, total: 1, unit: 'thí nghiệm' },
+    { id: 'play', desc: `${s.gamesTotal} trò vui`, tone: 'green', value: s.gamesDone, total: s.gamesTotal, unit: 'trò đã xong' },
+    { id: 'passport', desc: 'Huy hiệu của bạn', tone: 'terra', value: s.badges, total: s.badgesTotal, unit: 'huy hiệu' },
+    { id: 'connect', desc: next ? next.title : 'Tin chiến dịch', tone: 'sand', note: next?.status === 'now' ? 'Đang diễn ra' : 'Sắp tới' },
   ];
 }
 
 const nf = new Intl.NumberFormat('vi-VN');
 const fmt = (v) => (v == null ? null : nf.format(v));
 
-function seg(active) {
-  const items = [
-    { id: 'welcome', href: '/home', label: 'Chào mừng' },
-    { id: 'map', href: '/home/map', label: 'Bản đồ khu' },
-  ];
-  return h('nav', { class: 'zseg', 'aria-label': 'Màn trong ECO HOME' },
-    items.map((it) => h('a', { class: 'zseg-item', href: `#${it.href}`, 'aria-current': it.id === active ? 'page' : null }, it.label)));
-}
-
 // ---------------- Màn chào ----------------
-function mountWelcome(el, ctx) {
+function mountWelcome(el) {
   const name = (store.state.profile.name || '').trim();
   const greet = name
-    ? `Chào <b>${esc(name)}</b>! Mình là <b>Ebi</b> đây. Mình đi khám phá tiếp nhé!`
-    : 'Xin chào! Mình là <b>Ebi</b> – chiếc chai nhựa mơ được tái sinh. Đi cùng mình nhé!';
+    ? `Chào <b>${esc(name)}</b>! Mình là <b>Ebi</b>. Đi khám phá tiếp nhé!`
+    : 'Xin chào! Mình là <b>Ebi</b> – chiếc chai nhựa muốn được tái sinh!';
 
   const bub = h('div', { class: 'bubble hm-bubble anim-pop', html: greet, 'aria-live': 'polite' });
   let ebiEl = ebi({ pose: 'wave', size: 200, title: 'Ebi đang vẫy tay chào' });
@@ -84,7 +70,7 @@ function mountWelcome(el, ctx) {
     if (e.pointerType !== 'mouse') return;
     hovering = true;
     setPose('cheer', 'wow');
-    say(bub, 'Ơ kìa, bạn tìm thấy mình rồi! <b>Bấm vào mình</b> để nghe chuyện nhé!');
+    say(bub, 'Ơ kìa, bạn tìm thấy mình rồi! <b>Bấm vào mình</b> nhé!');
   });
   ebiBtn.addEventListener('pointerleave', (e) => {
     if (e.pointerType !== 'mouse' || !hovering) return;
@@ -93,7 +79,7 @@ function mountWelcome(el, ctx) {
   });
   ebiBtn.addEventListener('click', () => {
     let i;
-    do { i = Math.floor(Math.random() * LINES.length); } while (i === lastLine && LINES.length > 1);
+    do { i = Math.floor(Math.random() * LINES.length); } while (i === lastLine);
     lastLine = i;
     poseIdx = (poseIdx + 1) % POSE_CYCLE.length;
     setPose(POSE_CYCLE[poseIdx], pick(['happy', 'wink', 'smile']));
@@ -101,22 +87,20 @@ function mountWelcome(el, ctx) {
     say(bub, LINES[i]);
   });
 
-  // dải biến đổi
   const strip = buildStrip();
 
-  const hero = h('div', { class: 'hm-hero' },
-    h('div', { class: 'hm-greet' }, ebiBtn, bub),
-    h('div', { class: 'hm-title' },
-      h('h1', null, h('span', { class: 'hm-brand' }, h('b', null, 'ECObit'), ' HUB'),
-        h('span', { class: 'hm-tagline' }, `– ${site.tagline || 'Thế giới tái chế trong tầm tay'}`)),
-      h('p', { class: 'hm-slogan' }, h('span', { 'aria-hidden': 'true' }, '♻'), site.concept || 'Một chiếc chai, muôn vàn khả năng')),
-    h('div', { class: 'hm-cta' },
-      h('a', { class: 'btn btn-primary hm-cta-main', href: '#/journey' }, 'BẮT ĐẦU KHÁM PHÁ', h('span', { html: icon('arrow', 20) })),
-      h('a', { class: 'btn btn-sun', href: '#/connect' }, 'TÌM HIỂU VỀ ECObit')));
-
   el.append(h('div', { class: 'screen-inner hm hm-welcome' },
-    h('div', { class: 'hm-top' }, seg('welcome')),
-    h('div', { class: 'hm-welcome-grid' }, hero, strip.el)));
+    h('div', { class: 'hm-title' },
+      h('h1', null,
+        h('span', { class: 'hm-brand' }, h('b', null, 'ECObit'), ' HUB'),
+        h('span', { class: 'hm-tagline' }, `– ${site.tagline}`)),
+      h('p', { class: 'hm-slogan' }, site.concept)),
+    h('a', { class: 'btn btn-sm btn-aqua hm-switch', href: '#/home/map' }, 'Bản đồ', h('span', { html: icon('arrow', 18) })),
+    h('div', { class: 'hm-greet' }, ebiBtn, bub),
+    strip.el,
+    h('div', { class: 'hm-cta' },
+      h('a', { class: 'btn btn-primary', href: '#/journey' }, 'BẮT ĐẦU KHÁM PHÁ'),
+      h('a', { class: 'btn btn-sun', href: '#/connect' }, 'TÌM HIỂU VỀ ECObit'))));
 
   return () => strip.stop();
 }
@@ -139,19 +123,13 @@ function buildStrip() {
     class: 'hm-thumb', type: 'button', 'aria-label': `Bước ${i + 1}: ${s.name}`,
     onclick: () => { show(i); pause(); },
   }, h('img', { src: imgUrl(s.img), alt: '', decoding: 'async', draggable: 'false' })));
-  const chain = h('div', { class: 'hm-chain', role: 'group', 'aria-label': 'Chọn bước biến đổi' });
-  thumbs.forEach((t, i) => {
-    chain.append(t);
-    if (i < thumbs.length - 1) chain.append(h('span', { class: 'hm-chain-arrow', 'aria-hidden': 'true' }, '›'));
-  });
 
   const view = h('div', { class: 'hm-strip-view' }, imgs);
   const el = h('section', { class: 'hm-strip card', 'aria-label': 'Hành trình biến đổi của chiếc chai', 'aria-roledescription': 'trình chiếu' },
-    h('div', { class: 'hm-strip-main' }, view,
-      h('div', { class: 'hm-strip-side' },
-        h('div', { class: 'hm-strip-head' }, h('span', { class: 'eyebrow' }, 'Chiếc chai đi đâu?'), pauseBtn),
-        cap)),
-    chain);
+    h('div', { class: 'hm-strip-main' }, view, cap),
+    h('div', { class: 'hm-chain' },
+      h('div', { class: 'hm-thumbs', role: 'group', 'aria-label': 'Chọn bước biến đổi' }, thumbs),
+      pauseBtn));
 
   function show(i) {
     idx = (i + STEPS.length) % STEPS.length;
@@ -182,33 +160,57 @@ function buildStrip() {
 }
 
 // ---------------- Bản đồ khu ----------------
-function mountMap(el) {
-  const list = places();
-  const map = h('div', { class: 'hm-map stagger' }, list.map((p) => h('a', {
-    class: `hm-place tone-${p.tone}${p.done ? ' is-done' : ''}`, href: `#/${p.id}`, 'aria-label': `ECO ${p.name}: ${p.desc}. ${p.status}`,
+/** Ảnh địa điểm; ảnh lỗi thì tự về biểu tượng trong khung tròn. */
+function placePic(id) {
+  const box = h('span', { class: 'hm-pic' });
+  box.append(h('img', {
+    class: 'sticker', src: imgUrl(`loc-${id}`), alt: '', loading: 'lazy', decoding: 'async', draggable: 'false',
+    onerror: () => { box.classList.add('is-icon'); box.innerHTML = icon(id, 30); },
+  }));
+  return box;
+}
+
+function placeCard(p) {
+  const counted = p.total != null;
+  const done = counted && p.value >= p.total;
+  const name = `ECO ${p.id.toUpperCase()}`;
+  const summary = counted ? `${p.value}/${p.total} ${p.unit}` : p.note;
+  let prog;
+  if (counted) {
+    const pct = `${Math.round((p.value / p.total) * 100)}%`;
+    const label = p.total === 1 ? (done ? 'Xong' : 'Chưa') : `${p.value}/${p.total}`;
+    prog = h('span', { class: 'hm-prog', 'aria-hidden': 'true' },
+      h('b', null, done ? h('span', { html: icon('check', 18) }) : null, label),
+      h('span', { class: 'progress', style: `--p:${pct}` }, h('span')));
+  } else {
+    prog = h('span', { class: 'hm-prog is-note', 'aria-hidden': 'true' }, p.note);
+  }
+  return h('a', {
+    class: `hm-place tone-${p.tone}${done ? ' is-done' : ''}`, href: `#/${p.id}`,
+    'aria-label': `${name}: ${p.desc}. ${summary}`,
   },
-  h('span', { class: 'hm-pin', html: icon(p.id, 22) }),
-  h('span', { class: 'hm-place-name' }, h('small', null, 'ECO '), p.name),
-  h('span', { class: 'hm-place-desc' }, p.desc),
-  h('span', { class: `hm-place-status${p.info ? ' is-info' : ''}` },
-    p.done ? h('span', { html: icon('check', 14) }) : null, p.status))));
+  placePic(p.id), prog,
+  h('span', { class: 'hm-place-name' }, name),
+  h('span', { class: 'hm-place-desc' }, p.desc));
+}
+
+function mountMap(el) {
+  const map = h('div', { class: 'hm-map stagger' }, places().map(placeCard));
 
   const homeStats = stats.items.filter((s) => s.home).slice(0, 3);
-  const statBox = h('section', { class: 'hm-stats', 'aria-label': 'Số liệu chiến dịch' },
+  const statBox = h('a', { class: 'hm-stats', href: '#/connect/stats', 'aria-label': 'Xem tất cả số liệu chiến dịch' },
     homeStats.map((s) => {
       const v = fmt(s.value);
-      return h('div', { class: 'hm-stat' },
+      return h('span', { class: 'hm-stat' },
         h('span', { class: 'hm-stat-ico', 'aria-hidden': 'true' }, s.icon),
-        v ? h('b', { class: 'hm-stat-val' }, v, h('small', null, ` ${s.unit}`)) : h('b', { class: 'hm-stat-val is-pending' }, 'Đang cập nhật'),
-        h('span', { class: 'hm-stat-lbl' }, s.label));
-    }),
-    h('a', { class: 'hm-stats-more', href: '#/connect/stats' }, 'Tất cả số liệu', h('span', { html: icon('arrow', 16) })));
+        h('span', { class: 'hm-stat-lbl' }, s.label),
+        v ? h('b', { class: 'hm-stat-val' }, v, ' ', h('small', null, s.unit)) : h('b', { class: 'hm-stat-val is-pending' }, 'Đang cập nhật'));
+    }));
 
   el.append(h('div', { class: 'screen-inner hm hm-mapscreen' },
-    h('div', { class: 'hm-top' }, seg('map')),
     h('div', { class: 'hm-map-head' },
-      h('h2', null, 'Bản đồ ECObit'),
-      h('p', null, 'Chọn một địa điểm để ghé thăm nhé!')),
+      h('h1', null, 'Bản đồ ECObit'),
+      h('a', { class: 'btn btn-sm btn-aqua hm-switch', href: '#/home' }, h('span', { class: 'hm-flip', html: icon('arrow', 18) }), 'Chào mừng')),
     h('div', { class: 'hm-map-grid' }, map, statBox)));
 }
 
@@ -216,8 +218,8 @@ export default {
   id: 'home', title: 'ECO HOME', short: 'Nhà', icon: 'home',
   mount(el, ctx) {
     css('zones/home.css');
-    if (ctx.params[0] === 'map') return mountMap(el, ctx);
-    if (ctx.params.length) { history.replaceState(null, '', '#/home'); }
-    return mountWelcome(el, ctx);
+    if (ctx.params[0] === 'map') return mountMap(el);
+    if (ctx.params.length) history.replaceState(null, '', '#/home');
+    return mountWelcome(el);
   },
 };

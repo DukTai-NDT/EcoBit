@@ -1,0 +1,106 @@
+/* ECO CONNECT – dòng thời gian, số liệu, ảnh, đối tác. Chữ ≥16px, vùng chạm ≥44px. */
+.cn { gap: 8px; }
+
+.cn-seg {
+  flex: none; display: flex; gap: 2px; padding: 3px; align-self: center; width: 100%; max-width: 560px;
+  background: var(--paper); border: var(--line) solid var(--ink); border-radius: 999px; box-shadow: var(--lift-sm);
+}
+.cn-seg-item {
+  flex: 1 1 0; display: flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 6px;
+  border-radius: 999px; font-family: var(--font-display); font-weight: 700; font-size: 1rem; line-height: 1.1;
+  color: var(--ink-soft); text-decoration: none; white-space: nowrap; touch-action: manipulation;
+  transition: background .2s, color .2s;
+}
+.cn-seg-item:hover { color: var(--ink); background: rgba(36, 64, 46, .06); }
+.cn-seg-item[aria-current="page"] { background: var(--green-700); color: #fff; }
+
+.cn-coach { flex: none; display: flex; align-items: center; gap: 12px; }
+.cn-coach .ebi { flex: none; width: 72px; height: auto; }
+.cn-coach .bubble { flex: 1; min-width: 0; padding: 7px 12px; font-size: 1rem; line-height: 1.28; }
+
+/* ---------- Dòng thời gian ---------- */
+.cn-about-grid, .cn-stats-grid { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 8px; }
+.cn-timeline {
+  flex: 1; min-height: 0; margin: 0; padding: 0; list-style: none;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 2px;
+}
+.cn-step { position: relative; display: flex; gap: 10px; flex: 1 1 auto; min-height: 0; }
+.cn-step::before {
+  content: ""; position: absolute; left: 14px; top: 28px; bottom: -4px; width: 4px; background: var(--ink); opacity: .25;
+}
+.cn-step:last-child::before { display: none; }
+.cn-step.is-done::before { background: var(--green-500); opacity: 1; }
+.cn-dot {
+  position: relative; flex: none; width: 32px; height: 32px; display: grid; place-items: center;
+  background: var(--paper); border: var(--line) solid var(--ink); border-radius: 50%; color: #fff;
+}
+.cn-step.is-done .cn-dot { background: var(--green-500); }
+.cn-step.is-now .cn-dot { background: var(--sun-400); color: var(--ink); }
+.cn-step.is-next .cn-dot { box-shadow: 0 0 0 4px var(--sun-400); }
+.cn-step-body { flex: 1; min-width: 0; }
+.cn-step-meta { margin: 0; display: flex; flex-wrap: wrap; justify-content: space-between; column-gap: 8px; font-size: 1rem; line-height: 1.2; color: var(--ink-soft); }
+.cn-status { font-weight: 700; color: var(--green-700); }
+.cn-step.is-upcoming .cn-status { color: var(--terra-500); }
+.cn-step h2 { margin: 0; font-size: 1.15rem; line-height: 1.15; }
+.cn-step-text { margin: 0; font-size: 1rem; line-height: 1.22; }
+
+/* ---------- Số liệu ---------- */
+.cn-stats-main { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 6px; }
+.cn-table {
+  width: 100%; border-collapse: separate; border-spacing: 0; background: var(--paper);
+  border: var(--line) solid var(--ink); border-radius: 16px; box-shadow: var(--lift-sm); overflow: hidden;
+}
+.cn-table td, .cn-table th { padding: 3px 6px; font-size: 1rem; line-height: 1.15; border-bottom: 2px solid rgba(36, 64, 46, .14); vertical-align: middle; }
+.cn-table tr:last-child td, .cn-table tr:last-child th { border-bottom: 0; }
+.cn-table th { text-align: left; font-weight: 500; }
+.cn-ico { width: 34px; text-align: center; font-size: 1.2rem !important; padding-right: 0 !important; }
+.cn-val { text-align: right; white-space: nowrap; }
+.cn-val b { font-family: var(--font-display); font-size: 1.2rem; color: var(--green-700); }
+.cn-val b span { font-size: 1rem; color: var(--ink-soft); }
+.cn-pending { font-weight: 700; color: var(--terra-500); }
+.cn-source { flex: none; margin: 0; font-size: 1rem; line-height: 1.25; color: var(--ink-soft); }
+
+/* ---------- Ảnh ---------- */
+.cn-gallery { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.cn-photo {
+  margin: 0; min-height: 0; display: flex; flex-direction: column; overflow: hidden;
+  background: var(--paper); border: var(--line) solid var(--ink); border-radius: 14px; box-shadow: var(--lift-sm);
+}
+.cn-photo img { flex: 1; min-height: 0; width: 100%; object-fit: cover; }
+.cn-photo figcaption { flex: none; padding: 3px 8px; font-size: 1rem; line-height: 1.2; }
+.cn-pager { flex: none; display: flex; align-items: center; justify-content: center; gap: 12px; }
+.cn-pager .btn { min-height: 44px; width: 44px; font-size: 1.3rem; }
+.cn-pager-label { font-weight: 700; }
+
+/* ---------- Đối tác ---------- */
+.cn-partner-list {
+  flex: 1; min-height: 0; margin: 0; padding: 0; list-style: none;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: minmax(0, 1fr); gap: 8px;
+}
+.cn-partner-list li { min-height: 0; padding: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 2px; line-height: 1.2; }
+.cn-partner-list img { max-height: 56px; min-height: 0; object-fit: contain; }
+
+/* ---------- Điện thoại thấp ---------- */
+@media (max-width: 860px) and (max-height: 700px) {
+  .cn-coach .ebi { display: none; }
+  .cn-coach .bubble::after { display: none; }
+  .cn-step-text { line-height: 1.15; }
+}
+
+/* ---------- Máy tính / bảng ngang ---------- */
+@media (min-width: 861px) {
+  .cn { gap: 18px; }
+  .cn-about-grid, .cn-stats-grid { flex-direction: row; align-items: center; gap: 36px; }
+  .cn-coach { flex: 0 0 38%; flex-direction: column; text-align: center; gap: 14px; }
+  .cn-coach .ebi { width: clamp(130px, 13vw, 170px); order: 2; }
+  .cn-coach .bubble { flex: none; font-size: 1.1rem; padding: 14px 18px; }
+  .cn-coach .bubble::after { left: 50%; bottom: -14px; transform: translateX(-50%) rotate(-45deg); border-radius: 0 0 0 6px; }
+  .cn-timeline { flex: 1; height: 100%; max-height: 540px; }
+  .cn-step { gap: 14px; }
+  .cn-step h2 { font-size: 1.35rem; }
+  .cn-step-text { font-size: 1.05rem; line-height: 1.35; }
+  .cn-stats-main { flex: 1; min-width: 0; height: auto; justify-content: center; gap: 12px; }
+  .cn-table td, .cn-table th { padding: 8px 14px; font-size: 1.05rem; }
+  .cn-gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr); gap: 14px; }
+  .cn-partner-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+}
