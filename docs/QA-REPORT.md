@@ -16,6 +16,42 @@ Ngày chạy: 07/11/2026. Bản kiểm: commit `c12b824`. Trình duyệt: Chromi
 | Console, 404 | Không lỗi, không 404. Riêng link hỏng ở B06 gây `URI malformed` |
 | Tải lần đầu | 875 KB ở `#/home` trên 360×740, nặng nhất trong các lượt đo (`qa_audit.py`) |
 
+## Trạng thái sau M7 (07/11/2026)
+
+Kiểm lại sau M7: `qa_play.py` **216/216** (10 ca hỏng của M6 đều đạt); `qa_screens.py` 1.624 trạng thái, 6 khung yêu cầu không cuộn, không cuộn ngang, không lỗi console, không 404; khung xoay ngang 740×360, 667×375, 844×390 mọi nút chính bấm được (cuộn tới rồi `elementFromPoint`); Puzzle 0 chỗ chồng; `validate_data.mjs` 0 lỗi. Ảnh sau sửa: `M7-B03-journey-740x360.png`, `M7-B01-puzzle-360x740.png`.
+
+| ID | Trạng thái | Ghi chú |
+|---|---|---|
+| B01 | **Đã sửa M7** | Bỏ `minHeight` của kho; thẻ đã vào ô thì kho thu lại; ô đã điền ≥ 44px. Ô trống (chưa bấm được) được thấp tới 24px trên điện thoại cao ≤ 760px; máy cao ≤ 700px ẩn Ebi của Puzzle |
+| B02 | **Đã sửa M7** | 19 `explain` bỏ cụm khen; `validate_data.mjs` báo lỗi nếu `explain` mở đầu bằng lời khen/đúng/sai |
+| B03 | **Đã sửa M7** | Khối `@media (max-height: 480px) and (orientation: landscape)` cho khung app, Journey, Home, Quiz, hình nền Passport |
+| B04 | **Đã sửa M7** | Chỉ sửa CSS (padding, cỡ chữ 15px ở máy thấp), không rút gọn nhãn `match.js` |
+| B05 | **Đã sửa M7** | Ẩn ảnh câu hỏi khi hiện giải thích; máy thấp ẩn Ebi trong khung giải thích |
+| B06 | **Đã sửa M7** | Giải mã từng đoạn link có try/catch; đoạn hỏng coi như link sai |
+| B07 | **Đã sửa M7** | Đổi route thì đóng mọi hộp thoại |
+| B08 | **Đã sửa M7** | `.btn-primary` và các nhãn chữ trắng trên nền xanh dùng `--green-700` |
+| B09 | **Đã sửa M7** | Nhãn tab 12px, xuống 2 dòng (ngoại lệ PM duyệt); chip/nhãn phụ 14px |
+| B10 | **Đã sửa M7** | `store` nạp lại khi có sự kiện `storage`, `pageshow`, `visibilitychange` |
+| B11 | **Đã sửa M7** | Trộn phương án (lấy phần engine từ `0dda8d7`) |
+| B12 | **Đã sửa M7** | Tiêu điểm vào `#stage` khi đổi màn; hộp thoại giữ tiêu điểm; đổi avatar xong về nút "Đổi" |
+| B13 | **Đã sửa M7** | `ctx.replace()` cho link con sai ở Play, Discover, Journey, Lab |
+| B14 | **Đã sửa M7** | Sảnh Play gọn lại ở máy thấp, 0px cuộn |
+| B15 | **Đã sửa M7** | Ghi mảnh ngay khi xong nhiệm vụ; hoạt ảnh bay chỉ để hiển thị |
+| B16 | **Đã sửa M7** | Bỏ `img` ở Q3, Q7 (hộp nhựa nắp gài gợi thẳng "hộp PP"), Q9 (áo, ba lô, gấu bông gợi thẳng "sợi dệt vải") |
+| B17 | Để M8 | |
+| B18 | Để M8 | |
+| B19 | **Đã sửa M7** | Chip điểm, logo, tab máy tính, `.modal-close` ≥ 44px |
+| B20 | Để M8 | Riêng `#/journey/finale` ở 360/320px đã sửa (mục 17): nhãn xuống dòng, không chạm mép, nút không bị đè |
+| B21 | Để M8 | |
+| B22 | **Đã sửa M7** | Lời chào mới theo brief (lời Home vẫn viết trong code, chuyển vào `src/data/` ở M8) |
+| B23 | Để M8 | |
+| B24 | **Đã sửa M7** | `.modal` có dòng `vh` trước `dvh`; `:focus` dự phòng cho trình duyệt chưa có `:focus-visible` |
+| B25 | Để M8 | |
+| B26 | Để M8 | |
+
+Làm thêm trong M7: hàng đợi toast (1 cái, 1,8 giây, không chặn chạm); Lab bước 1 chỉ hiện tên đồ vật, mã nhựa hiện sau khi chọn; `.btn-back` 16px; đuôi bong bóng `.eng-coach`; `.gitignore`; 3 file `gemini-code-*.js` chuyển vào `raw/`.
+Còn lại ngoài phạm vi: chip "Đổi" ở Passport lệch 3px (chủ ý thiết kế); hộp thoại chọn avatar cuộn 16–46px khi xoay ngang.
+
 ## Bảng lỗi
 
 Ảnh chụp nằm ở `docs/qa-evidence/`. Toàn bộ ảnh theo route tạo lại bằng `python3 scripts/qa_screens.py` vào `qa-shots/` (97 MB, không commit).
