@@ -5,8 +5,8 @@ export default {
     {
       id: 'choose',
       title: 'Chọn nguyên liệu',
-      text: 'Hãy chọn các món đồ có ghi mã nhựa PET số 1. Đừng chỉ đoán chất liệu bằng màu sắc hay độ trong suốt!',
-      ebi: 'Mình là Ebi! Bạn hãy xem ký hiệu nhựa trên từng món rồi chọn đúng nguyên liệu PET nhé!',
+      text: 'Hãy chọn các món có ký hiệu tam giác số 1 – đó là nhựa PET. Đừng đoán bằng màu sắc hay độ trong suốt!',
+      ebi: 'Bạn tìm con số trong hình tam giác trên từng món rồi chọn đúng nguyên liệu PET nhé!',
       choices: [
         {
           id: 'c1',

@@ -213,12 +213,24 @@ function renderRecycle(el, { store, go }) {
     };
   }
 
+  // Ký hiệu tam giác mũi tên + chỉ con số (như nhãn dập dưới đáy hộp), không chữ.
+  function resinMark(code) {
+    const n = String(code || '').match(/\d+/);
+    if (!n) return null;
+    return h('span', { class: 'lab-resin', role: 'img', 'aria-label': `Ký hiệu nhựa số ${n[0]}`, html:
+      '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">'
+      + '<path class="lab-resin-line" d="M18.1 7L25.6 20.7M24.8 26.8L9.8 26.8M5.1 23L12.6 9.3"/>'
+      + '<path class="lab-resin-head" d="M27.2 23.5L21.7 20.6L27.6 17.3ZM6.6 26.8L11.8 23.4L11.8 30.2ZM14.2 6.5L14.6 12.7L8.7 9.4Z"/>'
+      + `<text x="16" y="24.8" text-anchor="middle">${n[0]}</text></svg>` });
+  }
+
   // --- Bước 1: chọn món PET ---
   function stepChoose(step) {
     const talk = talkRow(step.ebi, { pose: 'think' });
     const buttons = choices.map((c) => {
       const btn = h('button', { type: 'button', class: 'lab-choice', onclick: () => tap(c, btn) },
-        visual({ img: c.img, label: '' }, 'lab-choice-img'), h('span', { class: 'lab-choice-label' }, c.label));
+        h('span', { class: 'lab-choice-pic' }, visual({ img: c.img, label: '' }, 'lab-choice-img'), resinMark(c.code)),
+        h('span', { class: 'lab-choice-label' }, c.label));
       if (run.picked.has(c.id)) mark(c, btn);
       return btn;
     });
