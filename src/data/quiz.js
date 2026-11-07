@@ -67,7 +67,7 @@ export default {
       emoji: '🧪',
       options: [
         'Dùng nam châm hút mảnh nắp nhựa',
-        'Mảnh PET chìm, còn mảnh nắp PP/HDPE nổi',
+        'PET chìm, nắp PP/HDPE nổi',
         'Đốt cháy mảnh nắp để loại bỏ',
         'Dùng kính hiển vi gắp từng mảnh',
       ],

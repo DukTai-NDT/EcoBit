@@ -33,8 +33,16 @@ Chờ ChatGPT/Gemini chốt danh sách đồ vật (R1). Dự kiến:
 | `item-clear-box` | A clear plastic clamshell box holding a few small cakes. |
 | `item-straws` | A small bundle of colorful plastic drinking straws in a paper cup holder. |
 
+## Nhóm R – vẽ lại ảnh đã có (ưu tiên 1)- Bỏ qua không cần thiết
+Lý do: `code-hdpe` đang vẽ can sữa kiểu Mỹ, không phổ biến ở Việt Nam; nội dung đã đổi thành "Can nước giặt". Lưu đè lên `raw/code-hdpe.png`. Đính kèm thêm `code-pet` hoặc `code-pp` làm ảnh tham chiếu để cùng bộ 7 mã nhựa.
+| Tên | Mô tả |
+|---|---|
+| `code-hdpe` | A chunky opaque laundry detergent jug seen from a slight three-quarter angle, soft leaf-green body with a darker green wide screw cap, a sturdy molded side handle with a hand hole, and a slightly recessed blank label panel. Household detergent packaging, not a milk jug. |
+
 ## Nhóm J – 5 cảnh ECO JOURNEY (ưu tiên 2, tỉ lệ 4:3)
 Thay "One subject group centered" trong khối phong cách bằng "A small vignette scene, isolated as one compact island on the cream background".
+
+> Cozy hand-drawn children's picture-book illustration, same style as the reference image: soft gouache and colored-pencil texture, clean dark green-brown outlines of even weight, muted leafy greens, terracotta red, soft sky blue, warm sand and cream, gentle flat shading, slight top-down three-quarter view. A small vignette scene, isolated as one compact island on the cream background with generous margin, plain flat warm cream background (#FEF8E4), no ground shadow, no text, no letters, no numbers, no logos, no recycling symbols, no people.
 | Tên | Mô tả |
 |---|---|
 | `scene-1` | A school bench under a small tree with an empty clear plastic water bottle standing on it, a backpack beside it, a few fallen leaves. |

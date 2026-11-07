@@ -21,7 +21,7 @@ export default [
       level: 'cao',
       text: 'Chai PET được thu gom phổ biến để tái chế thành sợi polyester hoặc chai mới, nhưng không thể tái chế vô hạn lần.'
     },
-    fact: 'Mình bật mí nhé! PET không dùng BPA làm nguyên liệu. Chai PET sạch có thể tái chế thành chai mới hoặc sợi vải, nhưng chất lượng nhựa có thể giảm sau nhiều lần tái chế đấy!'
+    fact: 'Mình bật mí nhé! Chai PET không dùng BPA. Chai PET sạch có thể thành chai mới hoặc sợi vải, nhưng nhựa sẽ yếu dần sau nhiều lần tái chế.'
   },
   {
     id: 'hdpe',

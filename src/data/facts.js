@@ -70,7 +70,7 @@ export default [
     id: 'f12',
     tag: 'Việt Nam',
     text: 'Theo Ngân hàng Thế giới (2022), hơn 60% số món rác nhựa ghi nhận ở sông và bờ biển Việt Nam là đồ nhựa dùng một lần.',
-    emoji: '🇻🇳',
+    emoji: '📍',
   },
   {
     id: 'f13',
