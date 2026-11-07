@@ -31,7 +31,11 @@ VIEWPORTS = {
 EXTRA_VIEWPORTS = {
     '320x568': (320, 568, True),
     '740x360': (740, 360, True),
+    '667x375': (667, 375, True),
+    '844x390': (844, 390, True),
 }
+# Điện thoại xoay ngang (M7, B03): được cuộn sân khấu nhưng mọi nút chính phải bấm được.
+LANDSCAPE = ('740x360', '667x375', '844x390')
 
 # Trạng thái đã mở khoá hết – để xem các màn Passport/Journey khi đầy đủ.
 FULL_STATE = {
@@ -201,6 +205,54 @@ AUDIT_JS = r"""
 """
 
 
+# Nút chính bấm được: cuộn tới nút rồi elementFromPoint ở tâm phải trả về chính nút (M7, B03).
+HIT_JS = r"""
+() => {
+  const sc = [...document.querySelectorAll('.screen')].filter(s => !s.classList.contains('leaving')).pop();
+  if (!sc) return ['no .screen'];
+  const hiddenDeep = (e) => { for (let n = e; n && n !== document.body; n = n.parentElement) {
+    const c = getComputedStyle(n);
+    if (c.display === 'none' || c.visibility === 'hidden' || +c.opacity === 0) return true; } return false; };
+  const name = (e) => `${e.tagName.toLowerCase()}.${String(e.className).split(/\s+/)[0]} "${(e.textContent || e.getAttribute('aria-label') || '').trim().slice(0, 24)}"`;
+  const bad = [];
+  for (const e of sc.querySelectorAll('a,button,input,[role=slider],[role=tab]')) {
+    if (hiddenDeep(e) || e.disabled) continue;
+    const box = e.getBoundingClientRect();
+    if (box.width < 2 || box.height < 2) continue;
+    // chỉ cuộn những vùng người dùng cuộn được (.stage bị khoá nên không dùng scrollIntoView)
+    for (let n = e.parentElement; n && sc.contains(n); n = n.parentElement) {
+      if (!/(auto|scroll)/.test(getComputedStyle(n).overflowY)) continue;
+      const r = e.getBoundingClientRect(), v = n.getBoundingClientRect();
+      n.scrollTop += r.top + r.height / 2 - (v.top + v.height / 2);
+    }
+    const r = e.getBoundingClientRect();
+    const t = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+    if (!t || (!e.contains(t) && !t.contains(e) && !t.closest('.toasts,.confetti'))) bad.push(`${name(e)} ⟵ ${t ? name(t) : 'ngoài khung'}`);
+  }
+  sc.scrollTop = 0;
+  return [...new Set(bad)].slice(0, 8);
+}
+"""
+
+# Puzzle: số chỗ hai ô chồng nhau, ô thấp hơn 44px, chữ tràn ô (M7, B01).
+ORDER_JS = r"""
+() => {
+  const rs = [...document.querySelectorAll('.order-slot')].map(e => ({ e, r: e.getBoundingClientRect() }));
+  let overlaps = 0, low = 0, spill = 0;
+  rs.forEach(({ e, r }, i) => {
+    if (i && r.top < rs[i - 1].r.bottom - 0.5) overlaps++;
+    if (e.classList.contains('is-filled') && r.height < 43.5) low++;
+    const l = e.querySelector('.order-label');
+    if (l) { const b = l.getBoundingClientRect(); if (b.bottom > r.bottom + 0.5 || b.top < r.top - 0.5) spill++; }
+  });
+  const stock = document.querySelector('.order-stock')?.getBoundingClientRect();
+  const last = rs.length ? rs[rs.length - 1].r : null;
+  if (stock && last && last.bottom > stock.top + 0.5) overlaps++;
+  return { overlaps, low, spill, n: rs.length };
+}
+"""
+
+
 def problems(a, vh):
     """Rút gọn kết quả đo thành danh sách vấn đề. Dưới 640px cao được phép cuộn nhẹ trong màn."""
     p = []
@@ -228,6 +280,7 @@ def tap(page, loc, mode):
             if loc.is_enabled():
                 break
             page.wait_for_timeout(50)
+        loc.scroll_into_view_if_needed(timeout=2000)   # khung xoay ngang: nút có thể nằm dưới nếp gấp
         r = loc.bounding_box()
         page.touchscreen.tap(r['x'] + r['width'] / 2, r['y'] + r['height'] / 2)
     else:
@@ -333,13 +386,18 @@ def solve_order(page, items, mode, wrong_first=False):
         tap(page, page.locator('.order-check'), mode)
 
 
+def quiz_opt(page, q, n):
+    """Phương án có chỉ số gốc n: engine trộn thứ tự hiển thị nên phải tìm theo chữ (M7, B11)."""
+    return page.locator('.quiz-opt').filter(has_text=q['options'][n])
+
+
 def solve_quiz(page, questions, mode, wrong=(), timeout_at=(), timer=0, shot=None):
     for i, q in enumerate(questions):
         if i in timeout_at:
             page.wait_for_timeout(int((timer + 0.6) * 1000))
         else:
             n = q['answer'] if i not in wrong else (q['answer'] + 1) % len(q['options'])
-            tap(page, page.locator('.quiz-opt').nth(n), mode)
+            tap(page, quiz_opt(page, q, n), mode)
         page.wait_for_timeout(120)
         if shot:
             shot(i)

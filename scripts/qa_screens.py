@@ -12,8 +12,8 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from qa_common import (EXTRA_VIEWPORTS, FULL_STATE, SHOTS, VIEWPORTS, AUDIT_JS, Log, browser, data, goto, new_ctx, problems, server,
-                       solve_match, solve_order, solve_quiz, solve_sort, tap)
+from qa_common import (EXTRA_VIEWPORTS, FULL_STATE, HIT_JS, LANDSCAPE, ORDER_JS, SHOTS, VIEWPORTS, AUDIT_JS, Log, browser, data, goto, new_ctx,
+                       problems, quiz_opt, server, solve_match, solve_order, solve_quiz, solve_sort, tap)
 
 ROUTES = [
     'home', 'home/map', 'discover', 'discover/pet', 'discover/hdpe', 'discover/pvc', 'discover/ldpe', 'discover/pp',
@@ -30,6 +30,15 @@ def rec(page, vp, name, shot=True):
     a = page.evaluate(AUDIT_JS)
     w, hgt, _ = VIEWPORTS[vp]
     p = problems(a, hgt)
+    if vp in LANDSCAPE:    # xoay ngang được cuộn sân khấu; chỉ xét cuộn ngang và nút bấm được
+        p = [x for x in p if x.startswith(('CUỘN NGANG', 'tràn ngang', 'chữ tràn'))]
+        hit = page.evaluate(HIT_JS)
+        if hit:
+            p.append('NÚT KHÔNG BẤM ĐƯỢC: ' + ', '.join(hit))
+    if page.locator('.order-slot').count():
+        o = page.evaluate(ORDER_JS)
+        if o['overlaps'] or o['low'] or o['spill']:
+            p.append(f"Puzzle: {o['overlaps']} chỗ chồng, {o['low']} ô thấp, {o['spill']} nhãn tràn")
     results.append({'vp': vp, 'state': name, 'problems': p, 'raw': a})
     if shot:
         d = os.path.join(SHOTS, vp)
@@ -100,7 +109,7 @@ def crawl_states(b, base, vp):
         for i in range(len(qs)):
             rec(page, vp, f's-{game}-q{i}', shot=(i == 0))
             bad = (qs[i]['answer'] + 1) % len(qs[i]['options'])
-            page.locator('.quiz-opt').nth(bad).click()
+            quiz_opt(page, qs[i], bad).click()
             page.wait_for_timeout(460)
             rec(page, vp, f's-{game}-q{i}-explain', shot=(i in (0, 3)))
             page.locator('.quiz-next').click()
@@ -146,7 +155,7 @@ def crawl_states(b, base, vp):
         eng = s['task']['engine']
         if eng == 'quiz':
             for q in cfg['questions']:
-                page.locator('.quiz-opt').nth((q['answer'] + 1) % len(q['options'])).click()
+                quiz_opt(page, q, (q['answer'] + 1) % len(q['options'])).click()
                 page.wait_for_timeout(420)
                 rec(page, vp, f's-journey-{sid}-explain')
                 page.locator('.quiz-next').click()
@@ -230,7 +239,7 @@ def main():
         for vp in VIEWPORTS:
             print('==', vp, flush=True)
             errors += crawl_routes(b, base, vp, custom or ROUTES)
-            if not custom and vp not in EXTRA_VIEWPORTS:
+            if not custom and (vp not in EXTRA_VIEWPORTS or vp in LANDSCAPE):
                 try:
                     errors += crawl_states(b, base, vp)
                 except Exception as e:  # ghi lại rồi chạy tiếp khung nhìn khác

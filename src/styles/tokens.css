@@ -76,3 +76,11 @@
     --tabbar-h: calc(64px + env(safe-area-inset-bottom, 0px));
   }
 }
+
+/* Điện thoại xoay ngang: thanh trên, thanh tab gọn lại để nhường chỗ cho sân khấu */
+@media (max-width: 860px) and (max-height: 480px) and (orientation: landscape) {
+  :root {
+    --topbar-h: 44px;
+    --tabbar-h: calc(46px + env(safe-area-inset-bottom, 0px));
+  }
+}

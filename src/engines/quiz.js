@@ -8,12 +8,13 @@
  *   variant?: 'quiz' | 'detective',  // detective: tiêu đề "Câu nào SAI?", phương án là nhận định dài
  *   questions: [{ q, options: string[], answer: number, explain, img? }]  // answer: chỉ số 0-based
  * }
+ * Phương án được trộn thứ tự khi hiển thị; chấm điểm vẫn theo `answer` gốc.
  * onProgress({ done, total })    sau mỗi câu đã trả lời
  * onComplete({ correct, total })
  *
  * `el` phải có chiều cao xác định (engine lấp đầy el).
  */
-import { h, esc, icon, vibrate } from '../core/ui.js';
+import { h, esc, icon, shuffle, vibrate } from '../core/ui.js';
 import { ebi, react } from '../core/ebi.js';
 import { coach, visual, emptyState } from './common.js';
 
@@ -62,11 +63,13 @@ export function mountQuiz(el, config, { onComplete, onProgress } = {}) {
     const pic = q.img ? visual({ img: q.img, label: 'Hình minh hoạ cho câu hỏi' }, 'quiz-pic') : null;
     const title = h('h2', { class: 'quiz-q' }, detective ? 'Câu nào SAI?' : q.q);
 
-    const opts = q.options.map((text, n) => h('button', {
+    // order[vị trí hiển thị] = chỉ số gốc trong q.options
+    const order = shuffle(q.options.map((_, n) => n));
+    const opts = order.map((n, pos) => h('button', {
       type: 'button',
       class: 'quiz-opt',
       onclick: () => answer(n),
-    }, h('span', { class: 'quiz-letter', 'aria-hidden': 'true' }, 'ABCD'[n] || n + 1), h('span', null, text)));
+    }, h('span', { class: 'quiz-letter', 'aria-hidden': 'true' }, 'ABCD'[pos] || pos + 1), h('span', null, q.options[n])));
 
     const body = h('div', { class: 'quiz-body' },
       line ? line.el : null,
@@ -86,7 +89,8 @@ export function mountQuiz(el, config, { onComplete, onProgress } = {}) {
       if (ok) correct++; else vibrate();
       line?.el.remove();
 
-      opts.forEach((btn, k) => {
+      opts.forEach((btn, pos) => {
+        const k = order[pos];
         btn.disabled = true;
         if (k === q.answer) btn.classList.add('is-ok');
         else if (k === n) btn.classList.add('is-bad', 'anim-shake');

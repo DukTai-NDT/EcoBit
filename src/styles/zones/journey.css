@@ -208,3 +208,23 @@
   .jr-scene-box { min-height: 180px; }
   .jr-ring { width: min(100%, 300px); }
 }
+
+/* Điện thoại xoay ngang: ảnh + lời xếp hàng ngang, thanh nút nằm dưới nội dung, sân khấu cuộn */
+@media (max-height: 480px) and (orientation: landscape) {
+  .jr-stage, .jr-finale { flex: none; }
+  .jr-stage.is-task { min-height: 0; }
+  .jr-body, .jr-host { flex: none; }
+  .jr-scene { flex: none; flex-direction: row; align-items: stretch; gap: 12px; }
+  .jr-scene-box { flex: 0 0 42%; height: 148px; min-height: 0; padding: 4px; }
+  .jr-scene-talk { flex: 1 1 0; min-width: 0; min-height: 0; align-self: center; align-items: center; gap: 14px; }
+  .jr-scene-talk .ebi { width: 64px; height: auto; }
+  .jr-reward { flex: none; }
+  .jr-gift { flex: none; }
+  .jr-gift .ebi { width: 56px; height: auto; }
+  .jr-tile { width: 64px; height: 64px; }
+  .jr-slot { height: 44px; }
+  .jr-finale-body { flex: none; flex-direction: row; justify-content: center; gap: 16px; }
+  .jr-ring { flex: 0 0 auto; width: 280px; }
+  .jr-node-img { height: 44px; }
+  .jr-finale-side { flex: 1 1 0; min-width: 0; width: auto; }
+}

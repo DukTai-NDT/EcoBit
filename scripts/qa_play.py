@@ -11,7 +11,7 @@ import time
 import traceback
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from qa_common import (FULL_STATE, KEY, SHOTS, Log, browser, data, goto, new_ctx, server, solve_match, solve_order,
+from qa_common import (FULL_STATE, KEY, SHOTS, Log, browser, data, goto, new_ctx, quiz_opt, server, solve_match, solve_order,
                        solve_quiz, solve_sort, state, tap, tap_until)
 
 results = []
@@ -463,7 +463,7 @@ def t_keyboard(b, base):
     goto(page, base, 'play/quiz', 500)
     q = data(page, 'quiz')['questions']
     for i in range(len(q)):
-        page.locator('.quiz-opt').nth(q[i]['answer']).focus()
+        quiz_opt(page, q[i], q[i]['answer']).focus()
         page.keyboard.press('Enter')
         page.wait_for_timeout(80)
         foc = page.evaluate("document.activeElement.className")

@@ -173,6 +173,36 @@
   .hm-stat-val.is-pending { font-size: 1.05rem; }
 }
 
+/* ---------- Điện thoại xoay ngang: chữ + nút bên trái, dải biến đổi bên phải, sân khấu cuộn ---------- */
+@media (max-height: 480px) and (orientation: landscape) {
+  .hm-welcome {
+    flex: none; column-gap: 12px; row-gap: 6px; align-content: start;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "title strip"
+      "greet strip"
+      "cta   strip";
+  }
+  .hm-welcome > .hm-switch { grid-area: title; justify-self: end; align-self: start; }
+  .hm-title { padding-right: 112px; }
+  .hm-title h1 { font-size: 1.4rem; }
+  .hm-tagline, .hm-slogan { font-size: 1rem; }
+  .hm-ebi { width: 56px; }
+  .hm-bubble { padding: 6px 10px; line-height: 1.25; }
+  .hm-cta .btn { min-height: 46px; padding: 4px 8px; font-size: 1rem; white-space: normal; }
+  .hm-strip { height: 216px; padding: 6px 8px 8px; gap: 6px; }
+  .hm-strip-main { flex-direction: row; }
+  .hm-strip-view { flex: 1 1 56%; }
+  .hm-strip-cap { flex: 1 1 44%; flex-direction: column; align-items: flex-start; min-height: 0; }
+  .hm-thumb { height: 44px; }
+  .hm-map-grid { flex: none; flex-direction: column; }
+  .hm-map { flex: none; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, 104px); }
+  .hm-stats { width: auto; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding: 6px; }
+  .hm-stat-ico { display: none; }
+  .hm-stat-val { font-size: 1.1rem; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hm-strip-img { transition: none; }
 }

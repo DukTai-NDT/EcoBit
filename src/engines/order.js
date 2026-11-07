@@ -31,7 +31,7 @@ export function mountOrder(el, config, { onComplete, onProgress } = {}) {
   let firstCorrect = null;
   let finished = false;
 
-  const slotBox = h('div', { class: 'order-slots', style: { gridTemplateRows: `repeat(${total}, minmax(0, 1fr))` } });
+  const slotBox = h('div', { class: 'order-slots', style: { gridTemplateRows: `repeat(${total}, auto)` } });
   const stockBox = h('div', { class: 'order-stock' });
   const root = h('div', { class: 'eng eng-order' }, ebiLine.el, slotBox, stockBox);
 
@@ -99,14 +99,12 @@ export function mountOrder(el, config, { onComplete, onProgress } = {}) {
       if (focus) (focus === 'slot' ? slotBox.querySelector('.is-bad') : btn)?.focus();
     } else {
       stockBox.classList.remove('is-empty');
-      stockBox.replaceChildren(...stock.map((item) => {
-        if (inSlot.has(item.id)) return h('div', { class: 'order-gap', 'aria-hidden': 'true' });
-        return h('button', {
-          type: 'button',
-          class: 'order-card',
-          onclick: (e) => put(item, e.detail === 0),
-        }, visual(item, 'order-pic'), h('span', { class: 'order-label' }, item.label));
-      }));
+      // thẻ đã vào ô thì nhường hẳn chỗ: kho thấp dần để các ô đã điền đủ cao
+      stockBox.replaceChildren(...stock.filter((item) => !inSlot.has(item.id)).map((item) => h('button', {
+        type: 'button',
+        class: 'order-card',
+        onclick: (e) => put(item, e.detail === 0),
+      }, visual(item, 'order-pic'), h('span', { class: 'order-label' }, item.label))));
       if (focus) stockBox.querySelector('.order-card')?.focus();
     }
     onProgress?.({ done: placed, total });
@@ -114,8 +112,6 @@ export function mountOrder(el, config, { onComplete, onProgress } = {}) {
 
   el.append(root);
   render();
-  // giữ nguyên chiều cao kho khi nó nhường chỗ cho nút "Kiểm tra", để các ô không nhảy
-  stockBox.style.minHeight = `${stockBox.offsetHeight}px`;
 
   return () => {
     t.clear();

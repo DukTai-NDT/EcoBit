@@ -12,7 +12,7 @@ export default {
         'Nhựa LDPE (mã số 4)',
       ],
       answer: 0,
-      explain: 'Đúng rồi! PET (số 1) thường được dùng làm chai nước giải khát. Mình cũng là một chai PET đấy bạn!',
+      explain: 'PET (số 1) thường được dùng làm chai nước giải khát. Mình cũng là một chai PET đấy bạn!',
     },
     {
       q: 'Dưới đáy can nước giặt có ghi mã số 2. Con số này cho biết can làm từ loại nhựa nào?',
@@ -24,11 +24,10 @@ export default {
         'Nhựa Polyethylene terephthalate (PET)',
       ],
       answer: 1,
-      explain: 'Chuẩn luôn! HDPE là polyethylene mật độ cao, mang mã số 2. Loại nhựa này thường làm chai dầu gội, can nước giặt.',
+      explain: 'HDPE là polyethylene mật độ cao, mang mã số 2. Loại nhựa này thường làm chai dầu gội, can nước giặt.',
     },
     {
       q: 'Nhóm đồ vật nào thường được làm từ nhựa PS (số 6)?',
-      img: 'item-foam-tray',
       options: [
         'Ống nước cứng và khung cửa nhựa',
         'Hộp đựng thức ăn có nắp gài',
@@ -36,7 +35,7 @@ export default {
         'Can nước giặt và chai nước tẩy',
       ],
       answer: 2,
-      explain: 'Chính xác! Hộp xốp thường làm từ PS dạng xốp. Một số hũ sữa chua cũng bằng PS, nhưng có loại làm từ PP.',
+      explain: 'Hộp xốp thường làm từ PS dạng xốp. Một số hũ sữa chua cũng bằng PS, nhưng có loại làm từ PP.',
     },
     {
       q: 'Đâu là một trình tự đúng để tái chế chai PET thành sợi polyester?',
@@ -48,7 +47,7 @@ export default {
         'Thu gom, băm và rửa, tạo hạt, kéo sợi',
       ],
       answer: 3,
-      explain: 'Đúng rồi! Đây là một quy trình phổ biến. Những chiếc chai được phân loại, băm và rửa trước khi tạo nguyên liệu để kéo sợi.',
+      explain: 'Thu gom, băm và rửa, tạo hạt rồi kéo sợi là một quy trình phổ biến. Những chiếc chai được phân loại, băm và rửa trước khi tạo nguyên liệu để kéo sợi.',
     },
     {
       q: 'Vì sao nên đổ hết nước thừa và làm sạch cặn trong chai trước khi phân loại?',
@@ -60,7 +59,7 @@ export default {
         'Làm chai nặng hơn để xe chở dễ hơn',
       ],
       answer: 0,
-      explain: 'Chính xác! Chai ít cặn bẩn sẽ thuận lợi cho thu gom và xử lý. Bạn nhớ để chai ráo nước nhé!',
+      explain: 'Chai ít cặn bẩn sẽ thuận lợi cho thu gom và xử lý. Bạn nhớ để chai ráo nước nhé!',
     },
     {
       q: 'Trong bể nước, nhà máy có thể tách mảnh nắp PP/HDPE khỏi mảnh thân chai PET thế nào?',
@@ -72,11 +71,10 @@ export default {
         'Dùng kính hiển vi gắp từng mảnh',
       ],
       answer: 1,
-      explain: 'Rất tốt! Mảnh PET thường chìm trong nước, còn PP và HDPE thường nổi. Nhờ đó, nhà máy có thể tách hai nhóm nhựa.',
+      explain: 'Mảnh PET thường chìm trong nước, còn PP và HDPE thường nổi. Nhờ đó, nhà máy có thể tách hai nhóm nhựa.',
     },
     {
       q: 'Hộp nào dưới đây phù hợp nhất để hâm thức ăn trong lò vi sóng?',
-      img: 'item-lunchbox',
       options: [
         'Hộp xốp PS dùng một lần',
         'Túi ni lông mỏng không có nhãn',
@@ -84,7 +82,7 @@ export default {
         'Hộp PVC không có hướng dẫn sử dụng',
       ],
       answer: 2,
-      explain: 'Chính xác! Với hộp nhựa, hãy tìm nhãn cho phép dùng trong lò vi sóng. Chỉ thấy số 5 thôi thì chưa đủ đâu bạn!',
+      explain: 'Với hộp nhựa, hãy tìm nhãn cho phép dùng trong lò vi sóng. Chỉ thấy số 5 thôi thì chưa đủ đâu bạn!',
     },
     {
       q: 'Điều nào đúng về việc tái chế cơ học nhựa nhiều lần?',
@@ -96,11 +94,10 @@ export default {
         'Chất lượng có thể giảm sau nhiều lần gia công',
       ],
       answer: 3,
-      explain: 'Đúng rồi! Nhiệt và quá trình gia công có thể làm nhựa suy giảm chất lượng. Số lần tái chế còn tùy loại nhựa và công nghệ.',
+      explain: 'Nhiệt và quá trình gia công có thể làm nhựa suy giảm chất lượng. Số lần tái chế còn tùy loại nhựa và công nghệ.',
     },
     {
       q: 'Chai nhựa PET đã qua sử dụng có thể được tái chế thành vật liệu nào?',
-      img: 'step-5-products',
       options: [
         'Thép không gỉ để làm thìa',
         'Sợi polyester dùng để dệt vải',
@@ -108,7 +105,7 @@ export default {
         'Đất sét tự nhiên để làm gạch',
       ],
       answer: 1,
-      explain: 'Tuyệt lắm! Những chiếc chai PET có thể được tái chế thành sợi polyester dùng để sản xuất vải và quần áo.',
+      explain: 'Những chiếc chai PET có thể được tái chế thành sợi polyester dùng để sản xuất vải và quần áo.',
     },
     {
       q: 'Vì sao ống hút nhựa dùng một lần thường khó được thu gom và tái chế?',
@@ -120,7 +117,7 @@ export default {
         'Vì mọi loại nhựa làm ống hút đều không nóng chảy',
       ],
       answer: 2,
-      explain: 'Đúng rồi! Ống hút rất nhỏ, thường dính đồ uống và khó thu gom riêng. Bạn có thể giảm dùng ống hút một lần nhé!',
+      explain: 'Ống hút rất nhỏ, thường dính đồ uống và khó thu gom riêng. Bạn có thể giảm dùng ống hút một lần nhé!',
     },
   ],
 };

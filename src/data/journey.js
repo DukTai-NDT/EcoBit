@@ -37,7 +37,7 @@ export default {
                 'Tự đốt chai trong sân trường'
               ],
               answer: 1,
-              explain: 'Chính xác! Hãy đổ cạn nước, tráng sơ nếu chai bẩn và làm theo hướng dẫn của nơi thu gom. Không phải nơi nào cũng yêu cầu bóp dẹp chai.'
+              explain: 'Hãy đổ cạn nước, tráng sơ nếu chai bẩn và làm theo hướng dẫn của nơi thu gom. Không phải nơi nào cũng yêu cầu bóp dẹp chai.'
             }
           ]
         }
@@ -150,7 +150,7 @@ export default {
                 'Bàn gỗ tự nhiên, đũa tre và giấy viết'
               ],
               answer: 0,
-              explain: 'Đúng rồi! Sợi polyester tái chế có thể làm vải may mặc, vải ba lô hoặc xơ bông dùng để nhồi thú bông.'
+              explain: 'Sợi polyester tái chế có thể làm vải may mặc, vải ba lô hoặc xơ bông dùng để nhồi thú bông.'
             },
             {
               q: 'Điều nào đúng về số chai PET cần để làm một chiếc áo polyester tái chế?',
@@ -161,7 +161,7 @@ export default {
                 'Không thể dùng chai PET để làm sợi dệt'
               ],
               answer: 1,
-              explain: 'Chuẩn luôn! Một hãng có thể công bố số chai cho mẫu áo cụ thể, nhưng không có số chai cố định áp dụng cho mọi chiếc áo.'
+              explain: 'Một hãng có thể công bố số chai cho mẫu áo cụ thể, nhưng không có số chai cố định áp dụng cho mọi chiếc áo.'
             }
           ]
         }

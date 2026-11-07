@@ -11,7 +11,7 @@ export default {
         'Chai PET đã dùng có thể tái chế thành sợi polyester.',
       ],
       answer: 1,
-      explain: 'Bắt được lỗi rồi! BPA không phải nguyên liệu sản xuất PET. Một số chai có thể có vết BPA do nhiễm bẩn từ nguồn khác.',
+      explain: 'BPA không phải nguyên liệu sản xuất PET. Một số chai có thể có vết BPA do nhiễm bẩn từ nguồn khác.',
     },
     {
       q: 'Vòng 2: Giải mã con số trên đồ nhựa',
@@ -22,7 +22,7 @@ export default {
         'Khả năng tái chế còn tùy sản phẩm và nơi thu gom.',
       ],
       answer: 0,
-      explain: 'Đúng! Mã số cho biết loại nhựa, không bảo đảm món đồ sẽ được tái chế. Bạn cần xem nơi thu gom có tiếp nhận không.',
+      explain: 'Mã số cho biết loại nhựa, không bảo đảm món đồ sẽ được tái chế. Bạn cần xem nơi thu gom có tiếp nhận không.',
     },
     {
       q: 'Vòng 3: Bí mật của hộp xốp đựng cơm',
@@ -33,7 +33,7 @@ export default {
         'Hộp xốp PS rất thích hợp để đựng canh đang sôi.',
       ],
       answer: 2,
-      explain: 'Đúng, câu đó sai! Cục An toàn thực phẩm khuyên không đựng nước sôi hay thức ăn đang nóng trong hộp xốp PS.',
+      explain: 'Cục An toàn thực phẩm khuyên không đựng nước sôi hay thức ăn đang nóng trong hộp xốp PS.',
     },
     {
       q: 'Vòng 4: Nhựa tái chế có giới hạn không?',
@@ -44,7 +44,7 @@ export default {
         'Gia công lặp lại có thể làm giảm chất lượng nhựa.',
       ],
       answer: 1,
-      explain: 'Bạn tìm đúng rồi! Nhiệt và quá trình gia công có thể làm chất lượng nhựa suy giảm sau nhiều lần tái chế.',
+      explain: 'Nhiệt và quá trình gia công có thể làm chất lượng nhựa suy giảm sau nhiều lần tái chế.',
     },
     {
       q: 'Vòng 5: Hành trình của túi ni lông',
@@ -55,7 +55,7 @@ export default {
         'Dùng lại túi sẵn có giúp giảm nhu cầu lấy túi mới.',
       ],
       answer: 0,
-      explain: 'Đúng! Túi ni lông thông thường không tự biến mất nhanh. Chúng có thể tồn tại lâu và vỡ thành những mảnh nhựa nhỏ.',
+      explain: 'Túi ni lông thông thường không tự biến mất nhanh. Chúng có thể tồn tại lâu và vỡ thành những mảnh nhựa nhỏ.',
     },
     {
       q: 'Vòng 6: Chuẩn bị chai trước khi tái chế',
@@ -66,7 +66,7 @@ export default {
         'Cứ để thức ăn thừa trong chai cho dễ tái chế.',
       ],
       answer: 2,
-      explain: 'Chính xác! Thức ăn thừa và cặn bẩn gây khó khăn cho khâu xử lý. Bạn hãy đổ cạn, tráng sơ khi cần và để chai ráo nhé!',
+      explain: 'Thức ăn thừa và cặn bẩn gây khó khăn cho khâu xử lý. Bạn hãy đổ cạn, tráng sơ khi cần và để chai ráo nhé!',
     },
   ],
 };

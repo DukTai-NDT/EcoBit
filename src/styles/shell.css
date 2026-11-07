@@ -95,6 +95,14 @@
   .points-lbl { display: none; }
 }
 
+/* điện thoại xoay ngang: biểu tượng và nhãn tab trên một hàng */
+@media (max-width: 860px) and (max-height: 480px) and (orientation: landscape) {
+  .tabbar { padding-top: 3px; }
+  .tab { flex-direction: row; gap: 4px; padding: 2px 0; }
+  .tab svg { width: 20px; height: 20px; }
+  .brand-mark { transform: scale(.8); margin-top: 2px; }
+}
+
 /* ---------- Sân khấu ---------- */
 .stage {
   position: relative; flex: 1; min-height: 0;

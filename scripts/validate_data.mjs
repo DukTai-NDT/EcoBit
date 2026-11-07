@@ -14,6 +14,8 @@ const warn = (f, m) => warns.push(`${f}: ${m}`);
 const load = async (name) => (await import(pathToFileURL(resolve(ROOT, 'src/data', name + '.js')).href)).default;
 const isStr = (v) => typeof v === 'string' && v.trim().length > 0;
 const LIMIT = { q: 140, option: 90, ebi: 160, fact: 200 };
+// Lời đúng/sai do engine nói (verdict); explain hiện cả khi trả lời sai nên không được mở đầu bằng lời khen/phán (M7, B02).
+const VERDICT_OPENING = /^\s*(đúng|sai|chưa đúng|chính xác|chuẩn (luôn|rồi)|chuẩn[!,.]|rất tốt|tốt lắm|tuyệt|giỏi|hay lắm|xuất sắc|bắt được|bạn tìm đúng)/iu;
 const len = (f, where, s, max) => { if (typeof s === 'string' && s.length > max) warn(f, `${where} dài ${s.length} > ${max} ký tự: “${s.slice(0, 50)}…”`); };
 
 function uniqueIds(f, list, where = 'id') {
@@ -61,6 +63,7 @@ function checkQuestions(f, qs, p = '', opts = {}) {
     if (!Number.isInteger(q.answer) || q.answer < 0 || q.answer >= q.options.length) err(f, `${w}: answer ${q.answer} ngoài khoảng options`);
     if (new Set(q.options).size !== q.options.length) err(f, `${w}: phương án trùng`);
     if (!isStr(q.explain)) warn(f, `${w} thiếu explain`);
+    else if (VERDICT_OPENING.test(q.explain)) err(f, `${w}: explain mở đầu bằng lời khen/đúng/sai: “${q.explain.slice(0, 40)}…”`);
     len(f, `${w}.q`, q.q, LIMIT.q);
     q.options.forEach((o, j) => { if (!isStr(o)) err(f, `${w}.options[${j}] rỗng`); len(f, `${w}.options[${j}]`, o, LIMIT.option); });
     len(f, `${w}.explain`, q.explain, LIMIT.ebi);

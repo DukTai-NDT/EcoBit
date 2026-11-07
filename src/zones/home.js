@@ -54,7 +54,7 @@ function mountWelcome(el) {
   const name = (store.state.profile.name || '').trim();
   const greet = name
     ? `Chào <b>${esc(name)}</b>! Mình là <b>Ebi</b>. Đi khám phá tiếp nhé!`
-    : 'Xin chào! Mình là <b>Ebi</b> – chiếc chai nhựa muốn được tái sinh!';
+    : 'Xin chào! Mình là <b>Ebi</b>. Cùng mình xem một chiếc chai có thể trở thành những gì nhé!';
 
   const bub = h('div', { class: 'bubble hm-bubble anim-pop', html: greet, 'aria-live': 'polite' });
   let ebiEl = ebi({ pose: 'wave', size: 200, title: 'Ebi đang vẫy tay chào' });

@@ -204,3 +204,9 @@
   .pp-wall-opt b { font-size: 1.3rem; }
   .pp-wall-btn { min-height: 54px; font-size: 1.1rem; }
 }
+
+/* Điện thoại xoay ngang: khung hình nền có chiều cao thật để nút "Tải về" không bị đè (M7, B03) */
+@media (max-height: 480px) and (orientation: landscape) {
+  .pp-wall-stage { flex: none; }
+  .pp-wall-view { height: 260px; }
+}
