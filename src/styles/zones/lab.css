@@ -1,0 +1,225 @@
+/* ECO LAB – sảnh, TN1 5 bước, TN3 thanh trượt. Stepper và nút bước nằm ở đáy để toast không che. */
+.lab { gap: 8px; }
+.lab-note {
+  flex: none; margin: 0; padding: 2px 10px; font-size: 1rem; line-height: 1.22; color: var(--ink-soft);
+  border-left: 4px solid var(--aqua-500); background: rgba(221, 243, 245, .6); border-radius: 0 8px 8px 0;
+}
+
+.lab-head { flex: none; display: flex; align-items: center; gap: 8px; min-height: 28px; }
+.lab-head .chip { flex: none; font-size: var(--fs-sm); }
+.lab-head h1 { margin: 0; font-size: 1.2rem; line-height: 1.15; }
+.lab-head:empty { display: none; }
+
+/* ---------- Sảnh ---------- */
+.lab-hub-head { flex: none; display: flex; align-items: center; gap: 10px; }
+.lab-hub-head h1 { margin: 0; font-size: 1.7rem; }
+.lab-cards { flex: 1 1 0; min-height: 0; display: grid; gap: 8px; grid-template-rows: repeat(3, minmax(0, 1fr)); }
+.lab-card {
+  min-height: 0; display: flex; align-items: center; gap: 10px; padding: 6px 10px;
+  color: var(--ink); text-decoration: none; touch-action: manipulation;
+  background: var(--paper); border: var(--line) solid var(--ink); border-radius: var(--radius); box-shadow: var(--lift-sm);
+  transition: transform .12s var(--ease), background .15s;
+}
+a.lab-card:active { transform: translateY(2px); }
+.lab-card.is-soon { background: rgba(255, 253, 247, .7); border-style: dashed; box-shadow: none; }
+.lab-card.is-soon .lab-card-img { filter: grayscale(.9); opacity: .55; }
+.lab-card-pic { flex: 0 0 96px; align-self: stretch; min-height: 0; display: flex; align-items: center; justify-content: center; }
+.lab-card-img { width: 100%; height: 100%; max-height: 130px; }
+.lab-card-text { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 3px; }
+.lab-card-name { font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; line-height: 1.12; }
+.lab-card-desc { line-height: 1.22; color: var(--ink-soft); }
+.lab-card .chip { font-size: 1rem; }
+
+/* ---------- TN1: khung bước ---------- */
+.lab-run-screen { gap: 6px; }
+.lab-steps { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; gap: 6px; }
+.lab-text { flex: none; margin: 0; line-height: 1.26; }
+.lab-stage { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; gap: 6px; }
+.lab-host { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
+
+.lab-talk { flex: none; display: flex; align-items: flex-end; gap: 16px; }
+.lab-talk .ebi { flex: none; }
+.lab-talk .bubble { flex: 1; min-width: 0; max-width: none; padding: 6px 12px; line-height: 1.28; border-radius: 18px; }
+.lab-talk .bubble::after { bottom: 10px; }
+
+/* thanh đáy */
+.lab-nav { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 52px; padding-bottom: 4px; }
+.lab-nav[hidden] { display: none; }
+.lab-nav .btn { min-height: 46px; padding: 6px 14px; font-size: 1rem; }
+.lab-nav .btn-icon { width: 48px; padding: 0; }
+.lab-stepper { flex: 1 1 0; min-width: 0; margin: 0; padding: 0; list-style: none; display: flex; justify-content: center; align-items: center; }
+.lab-stepper li {
+  position: relative; flex: 0 1 34px; display: grid; place-items: center; height: 28px;
+  font-family: var(--font-display); font-weight: 800; font-size: 1rem;
+}
+.lab-stepper li + li::before { content: ""; position: absolute; right: calc(50% + 12px); width: calc(100% - 24px); top: 50%; height: 3px; margin-top: -1.5px; background: var(--ink); opacity: .35; }
+.lab-stepper li > span:first-child {
+  position: relative; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--paper); border: 2px solid var(--ink); line-height: 1;
+}
+.lab-stepper li.is-done > span:first-child { background: var(--green-500); color: #fff; }
+.lab-stepper li.is-cur > span:first-child { background: var(--sun-400); transform: scale(1.14); }
+
+/* ---------- Bước 1 ---------- */
+.lab-choices { flex: 1 1 0; min-height: 0; display: grid; gap: 6px; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(3, minmax(48px, 1fr)); padding-bottom: 3px; }
+.lab-choice {
+  min-width: 0; min-height: 0; display: flex; align-items: center; gap: 4px; padding: 2px 6px 2px 2px;
+  text-align: left; color: var(--ink); font-family: var(--font-body); touch-action: manipulation;
+  background: var(--paper); border: var(--line) solid var(--ink); border-radius: var(--radius-sm); box-shadow: var(--lift-sm);
+  transition: background .15s, transform .12s var(--ease);
+}
+.lab-choice:active { transform: translateY(2px); }
+.lab-choice-img { flex: none; width: 42px; height: 100%; max-height: 62px; min-height: 0; object-fit: contain; pointer-events: none; }
+.lab-choice-label { min-width: 0; font-size: 1rem; font-weight: 600; line-height: 1.12; }
+.lab-choice.is-ok { background: var(--ok-bg); border-color: var(--ok); }
+.lab-choice.is-bad { background: var(--bad-bg); border-color: var(--bad); }
+
+/* ---------- Bước 2 ---------- */
+.lab-pile { flex: 1 1 0; min-height: 0; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.lab-pile-img { flex: 1 1 0; min-width: 0; height: 100%; max-height: 180px; object-fit: contain; animation: pop-in .5s var(--ease-bounce) both; }
+.lab-pile-img:nth-child(2) { animation-delay: .1s; }
+.lab-pile-img:nth-child(3) { animation-delay: .2s; }
+
+/* ---------- Bước 3, 4: máy ---------- */
+.lab-machine { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; gap: 6px; }
+.lab-flow { flex: 1 1 0; min-height: 0; display: flex; align-items: center; justify-content: center; gap: 2px; }
+.lab-end { flex: 0 0 62px; display: flex; align-items: center; justify-content: center; }
+.lab-thumb { width: 62px; height: 62px; padding: 3px; background: var(--paper); border: 2px solid var(--ink); border-radius: 12px; }
+.lab-thumb-img { width: 100%; height: 100%; object-fit: contain; }
+.lab-thumb.is-output { background: var(--sand-200); }
+.lab-thumb.is-output .lab-thumb-img { opacity: calc(.12 + .88 * var(--out, 0)); filter: grayscale(calc(1 - var(--out, 0))); }
+.lab-end.is-done .lab-thumb { background: var(--ok-bg); border-color: var(--ok); animation: pop-in .45s var(--ease-bounce); }
+.lab-end.is-done .lab-thumb-img { opacity: 1; filter: none; }
+.lab-arrow { flex: none; color: var(--ink-soft); }
+.lab-arrow svg { width: 18px; height: 18px; }
+.lab-rig { position: relative; flex: 1 1 0; min-width: 0; height: 100%; display: flex; align-items: center; justify-content: center; }
+.lab-unit { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.lab-unit-img { width: 100%; height: 100%; object-fit: contain; }
+.lab-rig.is-running .lab-unit { animation: lab-rumble .16s linear infinite; }
+@keyframes lab-rumble { 0%,100% { transform: translate(0, 0); } 25% { transform: translate(-1.5px, 1px); } 75% { transform: translate(1.5px, -1px); } }
+
+.lab-fx { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .2s; }
+.lab-rig.is-running .lab-fx { opacity: 1; }
+.lab-fx i { position: absolute; display: block; animation: lab-drop 1s linear infinite both; }
+.lab-fx i:nth-child(1) { left: 18%; animation-delay: -.1s; }
+.lab-fx i:nth-child(2) { left: 30%; animation-delay: -.6s; }
+.lab-fx i:nth-child(3) { left: 42%; animation-delay: -.3s; }
+.lab-fx i:nth-child(4) { left: 53%; animation-delay: -.85s; }
+.lab-fx i:nth-child(5) { left: 64%; animation-delay: -.45s; }
+.lab-fx i:nth-child(6) { left: 74%; animation-delay: -.7s; }
+.lab-fx i:nth-child(7) { left: 84%; animation-delay: -.2s; }
+.fx-flake i { top: 20%; width: 8px; height: 6px; background: var(--paper); border: 1.5px solid var(--ink); border-radius: 2px; }
+.fx-bubble i { bottom: 16%; width: 11px; height: 11px; background: rgba(255, 255, 255, .7); border: 2px solid var(--aqua-500); border-radius: 50%; animation-name: lab-rise; }
+.fx-pellet i { top: 34%; width: 7px; height: 7px; background: var(--paper); border: 1.5px solid var(--ink); border-radius: 50%; }
+.fx-thread i { top: 12%; width: 3px; height: 26px; background: var(--green-300); border-radius: 2px; }
+@keyframes lab-drop { from { transform: translateY(0) rotate(0); opacity: 1; } to { transform: translateY(70px) rotate(160deg); opacity: 0; } }
+@keyframes lab-rise { from { transform: translateY(0) scale(.7); opacity: 1; } to { transform: translateY(-70px) scale(1.1); opacity: 0; } }
+
+.lab-meter { flex: none; display: flex; flex-direction: column; gap: 2px; }
+.lab-phase { font-family: var(--font-display); font-size: 1rem; line-height: 1.2; text-align: center; }
+.lab-bar { height: 12px; }
+.lab-run {
+  flex: none; width: 100%; min-height: 48px; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+}
+.lab-run.is-running { transform: none; box-shadow: 0 1px 0 var(--ink); background: var(--sand-200); }
+.lab-run.is-running svg { animation: lab-spin 1s linear infinite; }
+@keyframes lab-spin { to { transform: rotate(360deg); } }
+
+/* ---------- Bước 5 ---------- */
+.lab-products { flex: none; display: grid; gap: 6px; grid-template-columns: repeat(2, minmax(0, 1fr)); padding-bottom: 3px; }
+.lab-product {
+  min-width: 0; min-height: 46px; display: flex; align-items: center; gap: 4px; padding: 2px 6px;
+  text-align: left; color: var(--ink); font-family: var(--font-display); font-weight: 700; font-size: 1rem; line-height: 1.1; touch-action: manipulation;
+  background: var(--paper); border: var(--line) solid var(--ink); border-radius: var(--radius-sm); box-shadow: var(--lift-sm);
+  transition: background .15s, transform .12s var(--ease);
+}
+.lab-product:active { transform: translateY(2px); }
+.lab-product.is-sel { background: var(--sun-100); outline: 3px solid var(--sun-400); outline-offset: 1px; }
+.lab-product-ico { flex: none; font-size: 1.5rem; line-height: 1; }
+.lab-show { flex: 1 1 0; min-height: 0; display: flex; align-items: center; justify-content: center; }
+.lab-show-img { width: 100%; height: 100%; object-fit: contain; }
+.lab-show-pop { font-size: clamp(3rem, 14vh, 7rem); line-height: 1; animation: lab-appear .6s var(--ease-bounce) both; }
+@keyframes lab-appear { from { opacity: 0; transform: scale(.3) rotate(-14deg); } to { opacity: 1; transform: none; } }
+
+/* ---------- Kết quả ---------- */
+.lab-stage.is-result { gap: 0; }
+
+/* ---------- TN3: thanh trượt ---------- */
+.lab-slider { gap: 6px; }
+.lab-view {
+  position: relative; flex: 1 1 0; min-height: 0; overflow: hidden;
+  background: linear-gradient(var(--aqua-100), var(--green-100)); border: var(--line) solid var(--ink); border-radius: var(--radius); box-shadow: var(--lift-sm);
+}
+.lab-frame-img { position: absolute; inset: 8px; width: calc(100% - 16px); height: calc(100% - 16px); object-fit: contain; opacity: 0; }
+.lab-view-tag { position: absolute; left: 8px; top: 8px; font-size: var(--fs-md); }
+.lab-slider .lab-talk { min-height: 96px; }
+.lab-range { flex: none; padding: 0 22px; }
+.lab-track { position: relative; height: 48px; touch-action: none; cursor: pointer; user-select: none; -webkit-user-select: none; }
+.lab-track-line { position: absolute; left: 0; right: 0; top: 50%; height: 12px; margin-top: -6px; background: var(--paper); border: 2px solid var(--ink); border-radius: 999px; overflow: hidden; }
+.lab-track-fill { display: block; height: 100%; width: 0; background: var(--green-500); }
+.lab-tick { position: absolute; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: var(--paper); border: 2px solid var(--ink); pointer-events: none; }
+.lab-tick.on { background: var(--sun-400); }
+.lab-grip {
+  position: absolute; top: 50%; width: 44px; height: 44px; margin: -22px 0 0 -22px; display: grid; place-items: center;
+  font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; line-height: 1;
+  background: var(--sun-400); border: var(--line) solid var(--ink); border-radius: 50%; box-shadow: var(--lift-sm); cursor: grab; outline-offset: 2px;
+}
+.lab-grip:active { cursor: grabbing; background: var(--sun-100); }
+.lab-ends { display: flex; justify-content: space-between; margin: -2px -14px 0; font-family: var(--font-display); font-weight: 700; font-size: 1rem; line-height: 1.2; color: var(--ink-soft); }
+
+/* ---------- Máy tính ---------- */
+@media (min-width: 861px) {
+  .lab-note { max-width: 860px; margin: 0 auto; width: 100%; }
+  .lab-hub-head { justify-content: center; }
+  .lab-cards { grid-template-rows: none; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: stretch; max-height: 460px; margin: auto 0; }
+  .lab-card { flex-direction: column; align-items: stretch; padding: 14px; }
+  .lab-card-pic { flex: 1 1 0; }
+  .lab-card-img { max-height: none; }
+  .lab-card-text { flex: none; align-items: center; text-align: center; gap: 6px; }
+  .lab-card-name { font-size: 1.3rem; }
+
+  .lab-steps, .lab-nav, .lab-slider .lab-head, .lab-view, .lab-slider .lab-talk, .lab-range { width: 100%; max-width: 860px; margin-left: auto; margin-right: auto; }
+  .lab-head h1 { font-size: 1.5rem; }
+  .lab-steps { gap: 8px; }
+  .lab-stage { gap: 8px; }
+  .lab-stepper li { flex-basis: 56px; height: 32px; }
+  .lab-stepper li + li::before { right: calc(50% + 14px); width: calc(100% - 28px); }
+  .lab-choices { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .lab-choice { flex-direction: column; justify-content: center; text-align: center; padding: 6px; }
+  .lab-choice-img { width: 100%; flex: 1 1 0; height: auto; max-height: none; }
+  .lab-end { flex-basis: 110px; }
+  .lab-thumb { width: 110px; height: 110px; }
+  .lab-flow { gap: 10px; }
+  .lab-arrow svg { width: 26px; height: 26px; }
+  .lab-run { max-width: 360px; align-self: center; }
+  .lab-products { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  .lab-pile-img { max-height: 240px; }
+  .fx-flake i, .fx-pellet i { transform-origin: center; }
+}
+
+/* Giảm chuyển động: không rung, không hạt */
+@media (prefers-reduced-motion: reduce) {
+  .lab-fx { display: none; }
+  .lab-rig.is-running .lab-unit, .lab-run.is-running svg { animation: none; }
+}
+
+/* Điện thoại có thanh địa chỉ (cao < 720px): gọn lại; bước 1 đã có lời Ebi nêu cùng yêu cầu */
+@media (max-height: 719px) and (max-width: 860px) {
+  .lab-card-desc { display: none; }
+  .lab-steps[data-step="choose"] .lab-text { display: none; }
+  .lab-show-pop { font-size: 3rem; }
+}
+
+/* Máy rất thấp: giữ chiều cao tối thiểu, màn được phép cuộn nhẹ */
+@media (max-height: 639px) {
+  .lab-steps { min-height: 420px; }
+  .lab-steps[data-step="sort"] { min-height: 490px; }
+  .lab-view { min-height: 170px; }
+  .lab-cards { min-height: 300px; }
+}
+
+/* Máy tính màn thấp: đủ rộng để thẻ kéo thả co lại, khỏi phải cuộn */
+@media (max-height: 639px) and (min-width: 861px) {
+  .lab-steps[data-step="sort"] { min-height: 0; }
+  .lab-host .eng { min-height: 0; height: 100%; }
+}

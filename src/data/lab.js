@@ -56,21 +56,33 @@ export default {
       id: 'sort',
       title: 'Đưa vào khu PET',
       text: 'Những món có mã PET 1 được tập hợp để kiểm tra, phân loại và loại bớt nhãn, tạp chất.',
-      ebi: 'Giỏi lắm! Mình sẽ đứng ngoài quan sát, còn những chiếc chai PET được đưa vào khu sơ chế nhé!'
+      ebi: 'Giỏi lắm! Mình sẽ đứng ngoài quan sát, còn những chiếc chai PET được đưa vào khu sơ chế nhé!',
+      bins: [
+        { id: 'pet', label: 'Khu PET', sub: 'Mã số 1', color: 'var(--code-pet)' },
+        { id: 'other', label: 'Để riêng', sub: 'Mã khác', color: 'var(--sand-200)' }
+      ]
     },
     {
       id: 'wash',
       title: 'Băm và rửa mảnh nhựa',
       text: 'Những chiếc chai được băm thành mảnh rồi rửa. Trong bể nước, mảnh PET thường chìm, còn PP/HDPE từ nắp thường nổi.',
       ebi: 'Bạn thấy không? Những mảnh PET chìm, còn mảnh nhựa từ nắp thường nổi. Mình chỉ đứng xem thôi!',
-      img: 'lab-shredder'
+      img: 'lab-shredder',
+      phases: [
+        { img: 'lab-shredder', label: 'Băm thành mảnh', from: 'step-1-bottle', to: 'step-2-flakes', fx: 'flake' },
+        { img: 'lab-wash', label: 'Rửa mảnh nhựa', from: 'step-2-flakes', to: 'step-2-flakes', fx: 'bubble' }
+      ]
     },
     {
       id: 'make',
       title: 'Tạo nguyên liệu mới',
       text: 'Mảnh PET sạch, khô được nấu chảy và lọc. Trong mô phỏng này, nhựa được tạo thành hạt rPET rồi dùng để kéo sợi.',
       ebi: 'Những chiếc chai cũ đã thành nguyên liệu mới rồi! Có dây chuyền tạo hạt trước, có dây chuyền kéo sợi từ mảnh PET sạch.',
-      img: 'lab-extruder'
+      img: 'lab-extruder',
+      phases: [
+        { img: 'lab-extruder', label: 'Tạo hạt rPET', from: 'step-2-flakes', to: 'step-3-pellets', fx: 'pellet' },
+        { img: 'lab-extruder', label: 'Kéo sợi polyester', from: 'step-3-pellets', to: 'step-4-yarn', fx: 'thread' }
+      ]
     },
     {
       id: 'product',

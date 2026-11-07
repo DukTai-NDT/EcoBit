@@ -1,14 +1,23 @@
 // ECO JOURNEY – 5 chặng. task.engine: 'sort' | 'quiz' | 'order' | 'match'; task.config theo schema engine.
+// pieceImg: ảnh của mảnh ghép chặng đó. cycle: 5 khung của bức tranh vòng đời cuối hành trình.
 // (Agent D viết lời thoại & nhiệm vụ; Agent E dựng màn)
 export default {
   intro: 'Chào bạn, mình là Ebi, chai nhựa nắp xanh! Cùng đi 5 chặng theo những chiếc chai PET để nhận đủ 5 mảnh ghép nhé!',
   finale: 'Bạn đã ghép xong bức tranh vòng đời mới rồi! Mình và bạn vừa thấy những chiếc chai đã dùng có thể trở thành vật liệu mới.',
+  cycle: [
+    { img: 'step-1-bottle', label: 'Chai PET' },
+    { img: 'step-2-flakes', label: 'Mảnh PET sạch' },
+    { img: 'step-3-pellets', label: 'Hạt rPET' },
+    { img: 'step-4-yarn', label: 'Sợi polyester' },
+    { img: 'step-5-products', label: 'Sản phẩm mới' }
+  ],
   stages: [
     {
       id: 1,
       title: 'Chuyện gì xảy ra sau khi sử dụng?',
       scene: 'scene-1',
       piece: 'Chai đã dùng',
+      pieceImg: 'step-1-bottle',
       lines: [
         'Chào bạn, mình là Ebi, chai nhựa nắp xanh đây!',
         'Sau giờ ra chơi, đôi khi có những chiếc chai rỗng bị bỏ lại trên ghế đá.',
@@ -40,6 +49,7 @@ export default {
       title: 'Đi tìm đúng nơi',
       scene: 'scene-2',
       piece: 'Phân loại đúng',
+      pieceImg: 'scene-2',
       lines: [
         'Chúng mình đến khu phân loại rác của một ngôi trường giả định rồi!',
         'Trong trò chơi này, điểm thu gom nhận chai PET, chai HDPE và hộp PET sạch.',
@@ -71,6 +81,7 @@ export default {
       title: 'Bí mật bên trong nhà máy',
       scene: 'scene-3',
       piece: 'Mảnh nhựa sạch',
+      pieceImg: 'step-2-flakes',
       lines: [
         'Mình sẽ đứng ngoài khu máy để cùng bạn quan sát nhé!',
         'Ở một dây chuyền tái chế PET, những chiếc chai được phân loại và xử lý thành mảnh nhựa sạch.',
@@ -95,6 +106,7 @@ export default {
       title: 'Cuộc biến đổi kỳ diệu',
       scene: 'scene-4',
       piece: 'Sợi tái sinh',
+      pieceImg: 'step-4-yarn',
       lines: [
         'Những mảnh PET sạch có thể được dùng để tạo nguyên liệu mới.',
         'Trong quy trình minh họa này, nhà máy tạo hạt nhựa rPET rồi kéo thành sợi polyester.',
@@ -119,6 +131,7 @@ export default {
       title: 'Một vòng đời mới',
       scene: 'scene-5',
       piece: 'Sản phẩm mới',
+      pieceImg: 'step-5-products',
       lines: [
         'Chúng mình đến nơi trưng bày sản phẩm từ nhựa tái chế rồi!',
         'Sợi polyester tái chế có thể được dùng để làm vải hoặc bông nhồi.',
